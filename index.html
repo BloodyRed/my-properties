@@ -7,6 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Mes Propriétés — Taxes & Entretien</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230E3A31'/%3E%3Cstop offset='.5' stop-color='%23175A4B'/%3E%3Cstop offset='1' stop-color='%232F8A74'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Cpath d='M50 20 20 46h9v32h42V46h9z' fill='%23F2F4F2'/%3E%3Crect x='43' y='58' width='14' height='20' rx='2' fill='%23175A4B'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -81,7 +83,7 @@ header.app::after{
   pointer-events:none;
 }
 header.app h1{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:.2px}
-header.app h1 span{display:block;opacity:.72;font-size:12.5px;font-weight:500;margin:0;font-family:var(--body);letter-spacing:.4px;text-transform:uppercase}
+header.app h1 .tag{display:block;opacity:.72;font-size:12.5px;font-weight:500;margin:0;font-family:var(--body);letter-spacing:.4px;text-transform:uppercase}
 .year-pick{
   background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);color:#fff;
   border-radius:99px;padding:7px 14px;font-weight:700;font-size:14px;backdrop-filter:blur(3px);
@@ -242,6 +244,11 @@ h2.sec:first-child{margin-top:4px}
 .subhead{display:flex;justify-content:space-between;align-items:center;margin:24px 0 10px}
 .subhead h2{margin:0}
 
+.danger-zone{margin-top:26px}
+.danger-zone summary{cursor:pointer;font-size:12.5px;color:var(--ink-soft);font-weight:600;list-style:none;opacity:.75}
+.danger-zone summary::-webkit-details-marker{display:none}
+.danger-zone summary::before{content:'▸ ';font-size:11px}
+.danger-zone[open] summary::before{content:'▾ '}
 .empty{color:var(--ink-soft);font-size:14px;text-align:center;padding:28px 12px;border:1.5px dashed var(--line);border-radius:var(--radius);background:color-mix(in srgb,var(--card) 55%,transparent)}
 .notice{background:var(--amber-tint);border:1px solid color-mix(in srgb,var(--amber) 35%,transparent);color:var(--amber);border-radius:12px;padding:9px 13px;font-size:13px;margin-bottom:14px;display:none}
 .notice.on{display:block}
@@ -258,40 +265,43 @@ h2.sec:first-child{margin-top:4px}
 <body>
 
 <header class="app">
-  <h1>Mes Propriétés<span>taxes & entretien</span></h1>
-  <select class="year-pick" id="yearPick" aria-label="Année"></select>
+  <h1><span data-i18n="appName">Mes Propriétés</span><span class="tag" data-i18n="appTag">taxes & entretien</span></h1>
+  <div style="display:flex;gap:8px;align-items:center;position:relative;z-index:1">
+    <button class="year-pick" id="langBtn" onclick="toggleLang()" aria-label="Language">EN</button>
+    <select class="year-pick" id="yearPick" aria-label="Année"></select>
+  </div>
 </header>
 
 <nav class="tabs" id="tabs">
-  <button data-v="dash" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>Tableau</button>
-  <button data-v="props"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 21V8l6-5 6 5v13M4 21h16M13 21v-5h-2v5"/><path d="M20 21V11l-4-3"/></svg>Propriétés</button>
-  <button data-v="taxes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/></svg>Taxes</button>
-  <button data-v="dep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 4l6 6-10 10H4v-6zM12 6l6 6"/></svg>Dépenses</button>
-  <button data-v="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="8" cy="9" r="4"/><path d="M12 9h9v4h-3v3h-3v-3h-3z" transform="translate(-1 0)"/></svg>Location</button>
-  <button data-v="set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg>Réglages</button>
+  <button data-v="dash" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg><span data-i18n="navDash">Tableau</span></button>
+  <button data-v="props"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 21V8l6-5 6 5v13M4 21h16M13 21v-5h-2v5"/><path d="M20 21V11l-4-3"/></svg><span data-i18n="navProps">Propriétés</span></button>
+  <button data-v="taxes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/></svg><span data-i18n="navTaxes">Taxes</span></button>
+  <button data-v="dep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 4l6 6-10 10H4v-6zM12 6l6 6"/></svg><span data-i18n="navDep">Dépenses</span></button>
+  <button data-v="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="8" cy="9" r="4"/><path d="M12 9h9v4h-3v3h-3v-3h-3z" transform="translate(-1 0)"/></svg><span data-i18n="navLoc">Location</span></button>
+  <button data-v="set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg><span data-i18n="navSet">Réglages</span></button>
 </nav>
 
 <main>
-<div class="notice" id="storageNotice">⚠ Le stockage local n'est pas disponible ici — les données ne seront pas conservées. Exportez vos données ou activez la synchro nuage.</div>
+<div class="notice" id="storageNotice" data-i18n="storageNotice">⚠ Le stockage local n'est pas disponible ici — les données ne seront pas conservées.</div>
 
 <!-- ============ TABLEAU DE BORD ============ -->
 <section class="view on" id="v-dash">
   <div class="stat-row" id="dashStats"></div>
-  <h2 class="sec">Échéances à venir</h2>
+  <h2 class="sec" data-i18n="secDue">Échéances à venir</h2>
   <div id="dashDue"></div>
-  <h2 class="sec">Entretien à prévoir</h2>
+  <h2 class="sec" data-i18n="secMaint">Entretien à prévoir</h2>
   <div id="dashMaint"></div>
-  <h2 class="sec">Garanties & baux</h2>
+  <h2 class="sec" data-i18n="secWarr">Garanties & baux</h2>
   <div id="dashWarr"></div>
-  <h2 class="sec">Dépenses <span class="muted" id="dashYearLbl"></span> par catégorie</h2>
+  <h2 class="sec"><span data-i18n="secByCat">Dépenses par catégorie</span>&nbsp;<span class="muted" id="dashYearLbl"></span></h2>
   <div class="card"><div class="bars" id="dashBars"></div></div>
-  <h2 class="sec">Coût annuel par propriété</h2>
+  <h2 class="sec" data-i18n="secPerProp">Coût annuel par propriété</h2>
   <div id="dashPerProp"></div>
 </section>
 
 <!-- ============ PROPRIÉTÉS ============ -->
 <section class="view" id="v-props">
-  <div class="fab-row"><button class="btn" onclick="openProp()">+ Ajouter une propriété</button></div>
+  <div class="fab-row"><button class="btn" onclick="openProp()" data-i18n="addProp">+ Ajouter une propriété</button></div>
   <div id="propList"></div>
 </section>
 
@@ -299,7 +309,7 @@ h2.sec:first-child{margin-top:4px}
 <section class="view" id="v-taxes">
   <div class="toolbar">
     <select id="taxPropFilter" onchange="renderTaxes()"></select>
-    <button class="btn" style="margin-left:auto" onclick="openTax()">+ Compte de taxes</button>
+    <button class="btn" style="margin-left:auto" onclick="openTax()" data-i18n="addTax">+ Compte de taxes</button>
   </div>
   <div id="taxList"></div>
 </section>
@@ -309,16 +319,16 @@ h2.sec:first-child{margin-top:4px}
   <div class="toolbar">
     <select id="depPropFilter" onchange="renderDeps()"></select>
     <select id="depCatFilter" onchange="renderDeps()"></select>
-    <button class="btn" style="margin-left:auto" onclick="openDep()">+ Dépense</button>
+    <button class="btn" style="margin-left:auto" onclick="openDep()" data-i18n="addDep">+ Dépense</button>
   </div>
   <div class="stat-row" id="depStats"></div>
   <div id="depList"></div>
-  <div class="subhead"><h2 class="sec">Entretien planifié</h2><button class="btn ghost sm" onclick="openRec()">+ Tâche récurrente</button></div>
-  <p class="small muted" style="margin:-4px 0 10px">Tâches préventives avec fréquence — l'app vous avertit quand c'est le temps.</p>
+  <div class="subhead"><h2 class="sec" data-i18n="secPlanned">Entretien planifié</h2><button class="btn ghost sm" onclick="openRec()" data-i18n="addRec">+ Tâche récurrente</button></div>
+  <p class="small muted" style="margin:-4px 0 10px" data-i18n="plannedHint">Tâches préventives avec fréquence.</p>
   <div id="recList"></div>
   <div class="card" style="margin-top:16px">
-    <p class="small muted" style="margin-bottom:9px">Exporter les dépenses filtrées ci-dessus en CSV (compatible Excel) — pratique pour la comptabilité ou l'annexe fiscale.</p>
-    <button class="btn ghost" onclick="exportCSV()">Exporter en CSV</button>
+    <p class="small muted" style="margin-bottom:9px" data-i18n="csvHint">Exporter les dépenses filtrées en CSV.</p>
+    <button class="btn ghost" onclick="exportCSV()" data-i18n="exportCsv">Exporter en CSV</button>
   </div>
 </section>
 
@@ -326,166 +336,344 @@ h2.sec:first-child{margin-top:4px}
 <section class="view" id="v-loc">
   <div class="toolbar">
     <select id="locPropFilter" onchange="renderLoc()"></select>
-    <button class="btn" style="margin-left:auto" onclick="openUnit()">+ Logement</button>
+    <button class="btn" style="margin-left:auto" onclick="openUnit()" data-i18n="addUnit">+ Logement</button>
   </div>
   <div class="stat-row" id="locStats"></div>
-  <p class="small muted" style="margin:-2px 0 12px">Cochez les mois où le loyer a été perçu pour l'année sélectionnée en haut.</p>
+  <p class="small muted" style="margin:-2px 0 12px" data-i18n="locHint">Cochez les mois où le loyer a été perçu.</p>
   <div id="unitList"></div>
 </section>
 
 <!-- ============ RÉGLAGES ============ -->
 <section class="view" id="v-set">
-  <h2 class="sec">Sauvegarde</h2>
+  <h2 class="sec" data-i18n="secBackup">Sauvegarde</h2>
   <div class="card">
-    <p class="small muted" style="margin-bottom:10px">Vos données sont enregistrées dans ce navigateur. Exportez régulièrement une copie de secours.</p>
+    <p class="small muted" style="margin-bottom:10px" data-i18n="backupHint">Vos données sont enregistrées dans ce navigateur.</p>
     <div style="display:flex;gap:9px;flex-wrap:wrap">
-      <button class="btn ghost" onclick="exportJSON()">Exporter (JSON)</button>
-      <button class="btn ghost" onclick="document.getElementById('importFile').click()">Importer</button>
+      <button class="btn ghost" onclick="exportJSON()" data-i18n="exportJson">Exporter (JSON)</button>
+      <button class="btn ghost" onclick="document.getElementById('importFile').click()" data-i18n="importBtn">Importer</button>
       <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(this)">
     </div>
   </div>
-  <h2 class="sec">Synchro nuage (JSONBin.io)</h2>
+  <h2 class="sec" data-i18n="secCloud">Synchro nuage (JSONBin.io)</h2>
   <div class="card">
-    <p class="small muted" style="margin-bottom:10px">Optionnel — permet de retrouver vos données sur un autre appareil. Créez un bin sur jsonbin.io et collez la clé maître et l'ID du bin.</p>
-    <div class="frow"><label>Clé maître (X-Master-Key)</label><input type="password" id="binKey" autocomplete="off"></div>
-    <div class="frow"><label>ID du bin</label><input type="text" id="binId" autocomplete="off"></div>
+    <p class="small muted" style="margin-bottom:10px" data-i18n-html="cloudHint"></p>
+    <div class="frow"><label data-i18n="lblMasterKey">Clé maître (X-Master-Key)</label><input type="password" id="binKey" autocomplete="off"></div>
+    <div class="frow"><label data-i18n="lblBinId">ID du bin</label><input type="text" id="binId" autocomplete="off" data-i18n-ph="phBinId"></div>
     <div style="display:flex;gap:9px;flex-wrap:wrap">
-      <button class="btn" onclick="cloudSave()">Envoyer vers le nuage</button>
-      <button class="btn ghost" onclick="cloudLoad()">Récupérer du nuage</button>
+      <button class="btn" onclick="cloudSave()" data-i18n="sendCloud">Envoyer vers le nuage</button>
+      <button class="btn ghost" onclick="cloudLoad()" data-i18n="getCloud">Récupérer du nuage</button>
     </div>
     <p class="small muted" id="syncStatus" style="margin-top:8px"></p>
   </div>
-  <h2 class="sec">Zone dangereuse</h2>
-  <div class="card">
-    <button class="btn danger" onclick="wipeAll()">Effacer toutes les données</button>
-  </div>
+  <details class="danger-zone">
+    <summary data-i18n="advanced">Options avancées…</summary>
+    <div class="card" style="border-color:var(--brick);margin-top:10px">
+      <p class="small muted" style="margin-bottom:10px" data-i18n="dangerHint">Supprime définitivement toutes les données de cet appareil.</p>
+      <button class="btn danger" onclick="openWipe()" data-i18n="wipeOpen">Effacer toutes les données…</button>
+    </div>
+  </details>
 </section>
 </main>
 
 <!-- ============ MODALS ============ -->
 <div class="overlay" id="ovProp"><div class="modal">
   <h3 id="propModalTitle">Propriété</h3>
-  <div class="frow"><label>Nom / surnom *</label><input id="pName" placeholder="ex. Maison Mont-Saint-Hilaire"></div>
-  <div class="frow"><label>Adresse</label><input id="pAddr" placeholder="123 rue Principale, Ville (QC)"></div>
+  <div class="frow"><label data-i18n="lblPName">Nom / surnom *</label><input id="pName" data-i18n-ph="phPName"></div>
+  <div class="frow"><label data-i18n="lblPAddr">Adresse</label><input id="pAddr" data-i18n-ph="phPAddr"></div>
   <div class="fgrid">
-    <div class="frow"><label>Type</label><select id="pType">
-      <option>Maison</option><option>Condo</option><option>Duplex</option><option>Triplex</option>
-      <option>Chalet</option><option>Terrain</option><option>Autre</option>
+    <div class="frow"><label data-i18n="lblPType">Type</label><select id="pType">
+      <option value="Maison" data-i18n="typeMaison">Maison</option><option value="Condo">Condo</option>
+      <option value="Duplex">Duplex</option><option value="Triplex">Triplex</option>
+      <option value="Chalet" data-i18n="typeChalet">Chalet</option><option value="Terrain" data-i18n="typeTerrain">Terrain</option>
+      <option value="Autre" data-i18n="typeAutre">Autre</option>
     </select></div>
-    <div class="frow"><label>N° matricule / lot</label><input id="pLot" placeholder="optionnel"></div>
+    <div class="frow"><label data-i18n="lblPLot">N° matricule / lot</label><input id="pLot" data-i18n-ph="phOptional"></div>
   </div>
   <div class="fgrid">
-    <div class="frow"><label>Date d'achat</label><input type="date" id="pDate"></div>
-    <div class="frow"><label>Prix d'achat ($)</label><input type="number" id="pPrice" inputmode="decimal" step="0.01"></div>
+    <div class="frow"><label data-i18n="lblPDate">Date d'achat</label><input type="date" id="pDate"></div>
+    <div class="frow"><label data-i18n="lblPPrice">Prix d'achat ($)</label><input type="number" id="pPrice" inputmode="decimal" step="0.01"></div>
   </div>
-  <div class="frow"><label>Évaluation municipale / valeur ($)</label><input type="number" id="pValue" inputmode="decimal" step="0.01"></div>
-  <div class="frow"><label>Notes</label><textarea id="pNotes" placeholder="assurances, locataires, particularités…"></textarea></div>
+  <div class="frow"><label data-i18n="lblPValue">Évaluation municipale / valeur ($)</label><input type="number" id="pValue" inputmode="decimal" step="0.01"></div>
+  <div class="frow"><label data-i18n="lblNotes">Notes</label><textarea id="pNotes" data-i18n-ph="phPNotes"></textarea></div>
   <div class="modal-actions">
-    <button class="btn ghost" onclick="closeOv('ovProp')">Annuler</button>
-    <button class="btn danger sm" id="pDelete" style="flex:0 0 auto;display:none" onclick="deleteProp()">Supprimer</button>
-    <button class="btn" onclick="saveProp()">Enregistrer</button>
+    <button class="btn ghost" onclick="closeOv('ovProp')" data-i18n="btnCancel">Annuler</button>
+    <button class="btn danger sm" id="pDelete" style="flex:0 0 auto;display:none" onclick="deleteProp()" data-i18n="btnDelete">Supprimer</button>
+    <button class="btn" onclick="saveProp()" data-i18n="btnSave">Enregistrer</button>
   </div>
 </div></div>
 
 <div class="overlay" id="ovTax"><div class="modal">
   <h3 id="taxModalTitle">Compte de taxes</h3>
   <div class="fgrid">
-    <div class="frow"><label>Propriété *</label><select id="tProp"></select></div>
-    <div class="frow"><label>Année</label><input type="number" id="tYear"></div>
+    <div class="frow"><label data-i18n="lblProp">Propriété *</label><select id="tProp"></select></div>
+    <div class="frow"><label data-i18n="lblYear">Année</label><input type="number" id="tYear"></div>
   </div>
   <div class="fgrid">
-    <div class="frow"><label>Type</label><select id="tType"><option value="municipale">Taxes municipales</option><option value="scolaire">Taxes scolaires</option></select></div>
-    <div class="frow"><label>Montant total ($) *</label><input type="number" id="tTotal" inputmode="decimal" step="0.01"></div>
+    <div class="frow"><label data-i18n="lblPType">Type</label><select id="tType"><option value="municipale" data-i18n="optMunicipal">Taxes municipales</option><option value="scolaire" data-i18n="optSchool">Taxes scolaires</option></select></div>
+    <div class="frow"><label data-i18n="lblTotal">Montant total ($) *</label><input type="number" id="tTotal" inputmode="decimal" step="0.01"></div>
   </div>
   <div class="fgrid">
-    <div class="frow"><label>Nb de versements</label><select id="tCount"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
-    <div class="frow"><label>1ʳᵉ échéance</label><input type="date" id="tFirst"></div>
+    <div class="frow"><label data-i18n="lblCount">Nb de versements</label><select id="tCount"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+    <div class="frow"><label data-i18n="lblFirstDue">1ʳᵉ échéance</label><input type="date" id="tFirst"></div>
   </div>
-  <button class="btn ghost sm" onclick="genInstallments()" style="margin-bottom:10px">Générer l'échéancier (montants égaux)</button>
+  <button class="btn ghost sm" onclick="genInstallments()" style="margin-bottom:10px" data-i18n="genSched">Générer l'échéancier (montants égaux)</button>
   <div id="tInstallments"></div>
-  <div class="frow" style="margin-top:10px"><label>Notes</label><input id="tNotes" placeholder="optionnel"></div>
+  <div class="frow" style="margin-top:10px"><label data-i18n="lblNotes">Notes</label><input id="tNotes" data-i18n-ph="phOptional"></div>
   <div class="modal-actions">
-    <button class="btn ghost" onclick="closeOv('ovTax')">Annuler</button>
-    <button class="btn danger sm" id="tDelete" style="flex:0 0 auto;display:none" onclick="deleteTax()">Supprimer</button>
-    <button class="btn" onclick="saveTax()">Enregistrer</button>
+    <button class="btn ghost" onclick="closeOv('ovTax')" data-i18n="btnCancel">Annuler</button>
+    <button class="btn danger sm" id="tDelete" style="flex:0 0 auto;display:none" onclick="deleteTax()" data-i18n="btnDelete">Supprimer</button>
+    <button class="btn" onclick="saveTax()" data-i18n="btnSave">Enregistrer</button>
   </div>
 </div></div>
 
 <div class="overlay" id="ovDep"><div class="modal">
   <h3 id="depModalTitle">Dépense</h3>
   <div class="fgrid">
-    <div class="frow"><label>Propriété *</label><select id="dProp"></select></div>
-    <div class="frow"><label>Date</label><input type="date" id="dDate"></div>
+    <div class="frow"><label data-i18n="lblProp">Propriété *</label><select id="dProp"></select></div>
+    <div class="frow"><label data-i18n="lblDate">Date</label><input type="date" id="dDate"></div>
   </div>
   <div class="fgrid">
-    <div class="frow"><label>Montant ($) *</label><input type="number" id="dAmt" inputmode="decimal" step="0.01"></div>
-    <div class="frow"><label>Catégorie</label><select id="dCat"></select></div>
+    <div class="frow"><label data-i18n="lblAmount">Montant ($) *</label><input type="number" id="dAmt" inputmode="decimal" step="0.01"></div>
+    <div class="frow"><label data-i18n="lblCat">Catégorie</label><select id="dCat"></select></div>
   </div>
-  <div class="frow"><label>Titre *</label><input id="dTitle" placeholder="ex. Remplacement chauffe-eau"></div>
+  <div class="frow"><label data-i18n="lblTitle">Titre *</label><input id="dTitle" data-i18n-ph="phDTitle"></div>
   <div class="fgrid">
-    <div class="frow"><label>Fournisseur / entrepreneur</label><input id="dVendor" placeholder="optionnel"></div>
-    <div class="frow"><label>Garantie jusqu'au</label><input type="date" id="dWarr"></div>
+    <div class="frow"><label data-i18n="lblVendor">Fournisseur / entrepreneur</label><input id="dVendor" data-i18n-ph="phOptional"></div>
+    <div class="frow"><label data-i18n="lblWarranty">Garantie jusqu'au</label><input type="date" id="dWarr"></div>
   </div>
-  <div class="frow"><label>Description / détails</label><textarea id="dDesc" placeholder="travaux effectués, n° de facture, garantie…"></textarea></div>
-  <div class="frow"><label class="check" style="text-transform:none;letter-spacing:0"><input type="checkbox" id="dCapital"> Dépense capitalisable (rénovation qui ajoute de la valeur — utile pour le gain en capital)</label></div>
+  <div class="frow"><label data-i18n="lblDesc">Description / détails</label><textarea id="dDesc" data-i18n-ph="phDDesc"></textarea></div>
+  <div class="frow"><label class="check" style="text-transform:none;letter-spacing:0"><input type="checkbox" id="dCapital"> <span data-i18n="capitalLbl">Dépense capitalisable</span></label></div>
   <div class="modal-actions">
-    <button class="btn ghost" onclick="closeOv('ovDep')">Annuler</button>
-    <button class="btn danger sm" id="dDelete" style="flex:0 0 auto;display:none" onclick="deleteDep()">Supprimer</button>
-    <button class="btn" onclick="saveDep()">Enregistrer</button>
+    <button class="btn ghost" onclick="closeOv('ovDep')" data-i18n="btnCancel">Annuler</button>
+    <button class="btn danger sm" id="dDelete" style="flex:0 0 auto;display:none" onclick="deleteDep()" data-i18n="btnDelete">Supprimer</button>
+    <button class="btn" onclick="saveDep()" data-i18n="btnSave">Enregistrer</button>
   </div>
 </div></div>
 
 <div class="overlay" id="ovRec"><div class="modal">
   <h3 id="recModalTitle">Tâche d'entretien récurrente</h3>
-  <div class="frow"><label>Propriété *</label><select id="rProp"></select></div>
-  <div class="frow"><label>Tâche *</label><input id="rTitle" placeholder="ex. Nettoyage de la thermopompe"></div>
+  <div class="frow"><label data-i18n="lblProp">Propriété *</label><select id="rProp"></select></div>
+  <div class="frow"><label data-i18n="lblTask">Tâche *</label><input id="rTitle" data-i18n-ph="phRTitle"></div>
   <div class="fgrid">
-    <div class="frow"><label>Fréquence</label><select id="rFreq">
-      <option value="1">Mensuelle</option><option value="3">Aux 3 mois</option><option value="6">Aux 6 mois</option>
-      <option value="12" selected>Annuelle</option><option value="24">Aux 2 ans</option><option value="60">Aux 5 ans</option>
+    <div class="frow"><label data-i18n="lblFreq">Fréquence</label><select id="rFreq">
+      <option value="1" data-i18n="freq1">Mensuelle</option><option value="3" data-i18n="freq3">Aux 3 mois</option><option value="6" data-i18n="freq6">Aux 6 mois</option>
+      <option value="12" selected data-i18n="freq12">Annuelle</option><option value="24" data-i18n="freq24">Aux 2 ans</option><option value="60" data-i18n="freq60">Aux 5 ans</option>
     </select></div>
-    <div class="frow"><label>Dernière fois faite</label><input type="date" id="rLast"></div>
+    <div class="frow"><label data-i18n="lblLastDone">Dernière fois faite</label><input type="date" id="rLast"></div>
   </div>
-  <div class="frow"><label>Notes</label><input id="rNotes" placeholder="optionnel"></div>
+  <div class="frow"><label data-i18n="lblNotes">Notes</label><input id="rNotes" data-i18n-ph="phOptional"></div>
   <div class="modal-actions">
-    <button class="btn ghost" onclick="closeOv('ovRec')">Annuler</button>
-    <button class="btn danger sm" id="rDelete" style="flex:0 0 auto;display:none" onclick="deleteRec()">Supprimer</button>
-    <button class="btn" onclick="saveRec()">Enregistrer</button>
+    <button class="btn ghost" onclick="closeOv('ovRec')" data-i18n="btnCancel">Annuler</button>
+    <button class="btn danger sm" id="rDelete" style="flex:0 0 auto;display:none" onclick="deleteRec()" data-i18n="btnDelete">Supprimer</button>
+    <button class="btn" onclick="saveRec()" data-i18n="btnSave">Enregistrer</button>
   </div>
 </div></div>
 
 <div class="overlay" id="ovUnit"><div class="modal">
   <h3 id="unitModalTitle">Logement</h3>
   <div class="fgrid">
-    <div class="frow"><label>Propriété *</label><select id="uProp"></select></div>
-    <div class="frow"><label>Logement *</label><input id="uName" placeholder="ex. App. 2"></div>
+    <div class="frow"><label data-i18n="lblProp">Propriété *</label><select id="uProp"></select></div>
+    <div class="frow"><label data-i18n="lblUnit">Logement *</label><input id="uName" data-i18n-ph="phUName"></div>
   </div>
   <div class="fgrid">
-    <div class="frow"><label>Loyer mensuel ($)</label><input type="number" id="uRent" inputmode="decimal" step="0.01"></div>
-    <div class="frow"><label>Locataire</label><input id="uTenant" placeholder="optionnel"></div>
+    <div class="frow"><label data-i18n="lblRent">Loyer mensuel ($)</label><input type="number" id="uRent" inputmode="decimal" step="0.01"></div>
+    <div class="frow"><label data-i18n="lblTenant">Locataire</label><input id="uTenant" data-i18n-ph="phOptional"></div>
   </div>
   <div class="fgrid">
-    <div class="frow"><label>Début du bail</label><input type="date" id="uStart"></div>
-    <div class="frow"><label>Fin du bail</label><input type="date" id="uEnd"></div>
+    <div class="frow"><label data-i18n="lblLeaseStart">Début du bail</label><input type="date" id="uStart"></div>
+    <div class="frow"><label data-i18n="lblLeaseEnd">Fin du bail</label><input type="date" id="uEnd"></div>
   </div>
-  <div class="frow"><label>Notes</label><textarea id="uNotes" placeholder="dépôt, inclusions (chauffage, électro…), particularités"></textarea></div>
+  <div class="frow"><label data-i18n="lblNotes">Notes</label><textarea id="uNotes" data-i18n-ph="phUNotes"></textarea></div>
   <div class="modal-actions">
-    <button class="btn ghost" onclick="closeOv('ovUnit')">Annuler</button>
-    <button class="btn danger sm" id="uDelete" style="flex:0 0 auto;display:none" onclick="deleteUnit()">Supprimer</button>
-    <button class="btn" onclick="saveUnit()">Enregistrer</button>
+    <button class="btn ghost" onclick="closeOv('ovUnit')" data-i18n="btnCancel">Annuler</button>
+    <button class="btn danger sm" id="uDelete" style="flex:0 0 auto;display:none" onclick="deleteUnit()" data-i18n="btnDelete">Supprimer</button>
+    <button class="btn" onclick="saveUnit()" data-i18n="btnSave">Enregistrer</button>
+  </div>
+</div></div>
+
+<div class="overlay" id="ovWipe"><div class="modal">
+  <h3 style="color:var(--brick)" data-i18n="wipeTitle">Effacer toutes les données ?</h3>
+  <p class="small" style="margin-bottom:12px" data-i18n-html="wipeBody"></p>
+  <div class="frow"><label data-i18n="wipeLabel">Pour confirmer, écrivez « EFFACER »</label>
+    <input id="wipeInput" autocomplete="off" autocapitalize="characters" data-i18n-ph="wipeWord" oninput="wipeCheck()"></div>
+  <div class="modal-actions">
+    <button class="btn ghost" onclick="closeOv('ovWipe')" data-i18n="btnCancel">Annuler</button>
+    <button class="btn danger" id="wipeBtn" disabled style="opacity:.45" onclick="wipeAll()" data-i18n="wipeConfirm">Effacer définitivement</button>
   </div>
 </div></div>
 
 <div id="toast"></div>
+
 <script>
 /* ================= État & stockage ================= */
 const KEY='mesProprietesV1';
 const CATS=['Entretien','Réparation','Rénovation','Plomberie','Électricité','Toiture','Extérieur & terrain','Électroménagers','Frais & assurances','Autre'];
 const CAT_COLOR={'Entretien':'#2F8A74','Réparation':'#D97706','Rénovation':'#5B5FD6','Plomberie':'#0E87C4','Électricité':'#B7950B','Toiture':'#8B7355','Extérieur & terrain':'#65A30D','Électroménagers':'#C2569B','Frais & assurances':'#64748B','Autre':'#94A3B8'};
+const CAT_EN={'Entretien':'Maintenance','Réparation':'Repair','Rénovation':'Renovation','Plomberie':'Plumbing','Électricité':'Electrical','Toiture':'Roofing','Extérieur & terrain':'Exterior & yard','Électroménagers':'Appliances','Frais & assurances':'Fees & insurance','Autre':'Other'};
+const TYPE_EN={'Maison':'House','Chalet':'Cottage','Terrain':'Land','Autre':'Other'};
 const PROP_PALETTE=['#2F8A74','#5B5FD6','#D97706','#D5533A','#0E87C4','#C2569B','#65A30D'];
 const propColor=id=>PROP_PALETTE[Math.max(0,DB.properties.findIndex(p=>p.id===id))%PROP_PALETTE.length];
 let DB={properties:[],taxes:[],expenses:[],recurring:[],units:[],settings:{}};
+let LANG='fr';
 let memOnly=false;
+
+/* ================= i18n ================= */
+const STR={
+appName:["Mes Propriétés","My Properties"],
+appTag:["taxes & entretien","taxes & maintenance"],
+appTitle:["Mes Propriétés — Taxes & Entretien","My Properties — Taxes & Maintenance"],
+navDash:["Tableau","Overview"],navProps:["Propriétés","Properties"],navTaxes:["Taxes","Taxes"],
+navDep:["Dépenses","Expenses"],navLoc:["Location","Rentals"],navSet:["Réglages","Settings"],
+storageNotice:["⚠ Le stockage local n'est pas disponible ici — les données ne seront pas conservées. Exportez vos données ou activez la synchro nuage.","⚠ Local storage is not available here — your data will not be kept. Export your data or enable cloud sync."],
+secDue:["Échéances à venir","Upcoming payments"],
+secMaint:["Entretien à prévoir","Maintenance coming up"],
+secWarr:["Garanties & baux","Warranties & leases"],
+secByCat:["Dépenses par catégorie","Expenses by category"],
+secPerProp:["Coût annuel par propriété","Annual cost per property"],
+addProp:["+ Ajouter une propriété","+ Add a property"],
+addTax:["+ Compte de taxes","+ Tax account"],
+addDep:["+ Dépense","+ Expense"],
+addRec:["+ Tâche récurrente","+ Recurring task"],
+addUnit:["+ Logement","+ Unit"],
+secPlanned:["Entretien planifié","Planned maintenance"],
+plannedHint:["Tâches préventives avec fréquence — l'app vous avertit quand c'est le temps.","Preventive tasks with a frequency — the app warns you when it's time."],
+csvHint:["Exporter les dépenses filtrées ci-dessus en CSV (compatible Excel) — pratique pour la comptabilité ou l'annexe fiscale.","Export the filtered expenses above as a CSV (Excel-friendly) — handy for bookkeeping or tax forms."],
+exportCsv:["Exporter en CSV","Export as CSV"],
+locHint:["Cochez les mois où le loyer a été perçu pour l'année sélectionnée en haut.","Tick the months where rent was received for the year selected at the top."],
+secBackup:["Sauvegarde","Backup"],
+backupHint:["Vos données sont enregistrées dans ce navigateur. Exportez régulièrement une copie de secours.","Your data is stored in this browser. Export a backup copy regularly."],
+exportJson:["Exporter (JSON)","Export (JSON)"],importBtn:["Importer","Import"],
+secCloud:["Synchro nuage (JSONBin.io)","Cloud sync (JSONBin.io)"],
+cloudHint:["Optionnel — permet de retrouver vos données sur un autre appareil. Collez simplement votre clé maître (compte gratuit sur jsonbin.io) : le bin sera <strong>créé automatiquement</strong> au premier envoi et son ID s'inscrira ci-dessous. Sur un autre appareil, entrez la clé <em>et</em> cet ID, puis « Récupérer du nuage ».","Optional — lets you retrieve your data on another device. Just paste your master key (free account at jsonbin.io): the bin will be <strong>created automatically</strong> on first send and its ID will appear below. On another device, enter the key <em>and</em> that ID, then \"Fetch from cloud\"."],
+lblMasterKey:["Clé maître (X-Master-Key)","Master key (X-Master-Key)"],
+lblBinId:["ID du bin","Bin ID"],
+phBinId:["laissez vide — créé automatiquement au 1ᵉʳ envoi","leave empty — created automatically on first send"],
+sendCloud:["Envoyer vers le nuage","Send to cloud"],
+getCloud:["Récupérer du nuage","Fetch from cloud"],
+advanced:["Options avancées…","Advanced options…"],
+dangerHint:["Supprime définitivement toutes les propriétés, taxes, dépenses, tâches et logements de cet appareil. Pensez à exporter une copie JSON avant.","Permanently deletes all properties, taxes, expenses, tasks and units from this device. Consider exporting a JSON copy first."],
+wipeOpen:["Effacer toutes les données…","Erase all data…"],
+btnCancel:["Annuler","Cancel"],btnDelete:["Supprimer","Delete"],btnSave:["Enregistrer","Save"],
+lblPName:["Nom / surnom *","Name / nickname *"],phPName:["ex. Maison Mont-Saint-Hilaire","e.g. Mont-Saint-Hilaire house"],
+lblPAddr:["Adresse","Address"],phPAddr:["123 rue Principale, Ville (QC)","123 Main St, Town (QC)"],
+lblPType:["Type","Type"],lblPLot:["N° matricule / lot","Roll / lot number"],phOptional:["optionnel","optional"],
+lblPDate:["Date d'achat","Purchase date"],lblPPrice:["Prix d'achat ($)","Purchase price ($)"],
+lblPValue:["Évaluation municipale / valeur ($)","Municipal assessment / value ($)"],
+lblNotes:["Notes","Notes"],phPNotes:["assurances, locataires, particularités…","insurance, tenants, specifics…"],
+typeMaison:["Maison","House"],typeChalet:["Chalet","Cottage"],typeTerrain:["Terrain","Land"],typeAutre:["Autre","Other"],
+lblProp:["Propriété *","Property *"],lblYear:["Année","Year"],
+optMunicipal:["Taxes municipales","Municipal taxes"],optSchool:["Taxes scolaires","School taxes"],
+lblTotal:["Montant total ($) *","Total amount ($) *"],lblCount:["Nb de versements","Number of installments"],lblFirstDue:["1ʳᵉ échéance","First due date"],
+genSched:["Générer l'échéancier (montants égaux)","Generate schedule (equal amounts)"],
+lblDate:["Date","Date"],lblAmount:["Montant ($) *","Amount ($) *"],lblCat:["Catégorie","Category"],
+lblTitle:["Titre *","Title *"],phDTitle:["ex. Remplacement chauffe-eau","e.g. Water heater replacement"],
+lblVendor:["Fournisseur / entrepreneur","Vendor / contractor"],lblWarranty:["Garantie jusqu'au","Warranty until"],
+lblDesc:["Description / détails","Description / details"],phDDesc:["travaux effectués, n° de facture, garantie…","work done, invoice #, warranty…"],
+capitalLbl:["Dépense capitalisable (rénovation qui ajoute de la valeur — utile pour le gain en capital)","Capital expense (renovation that adds value — useful for capital gains)"],
+lblTask:["Tâche *","Task *"],phRTitle:["ex. Nettoyage de la thermopompe","e.g. Heat pump cleaning"],
+lblFreq:["Fréquence","Frequency"],
+freq1:["Mensuelle","Monthly"],freq3:["Aux 3 mois","Every 3 months"],freq6:["Aux 6 mois","Every 6 months"],
+freq12:["Annuelle","Yearly"],freq24:["Aux 2 ans","Every 2 years"],freq60:["Aux 5 ans","Every 5 years"],
+lblLastDone:["Dernière fois faite","Last done"],
+lblUnit:["Logement *","Unit *"],phUName:["ex. App. 2","e.g. Apt. 2"],
+lblRent:["Loyer mensuel ($)","Monthly rent ($)"],lblTenant:["Locataire","Tenant"],
+lblLeaseStart:["Début du bail","Lease start"],lblLeaseEnd:["Fin du bail","Lease end"],
+phUNotes:["dépôt, inclusions (chauffage, électro…), particularités","deposit, inclusions (heating, appliances…), specifics"],
+wipeTitle:["Effacer toutes les données ?","Erase all data?"],
+wipeBody:["Cette action est <strong>irréversible</strong> : toutes les propriétés, taxes, dépenses, tâches d'entretien et logements de cet appareil seront supprimés. La copie dans le nuage (JSONBin), s'il y en a une, n'est pas touchée.","This action is <strong>irreversible</strong>: all properties, taxes, expenses, maintenance tasks and units on this device will be deleted. The cloud copy (JSONBin), if any, is not affected."],
+wipeLabel:["Pour confirmer, écrivez « EFFACER »","To confirm, type \"ERASE\""],
+wipeWord:["EFFACER","ERASE"],
+wipeConfirm:["Effacer définitivement","Erase permanently"],
+mNewProp:["Nouvelle propriété","New property"],mEditProp:["Modifier la propriété","Edit property"],
+mNewTax:["Nouveau compte de taxes","New tax account"],mEditTax:["Modifier le compte de taxes","Edit tax account"],
+mNewDep:["Nouvelle dépense","New expense"],mEditDep:["Modifier la dépense","Edit expense"],
+mNewRec:["Nouvelle tâche récurrente","New recurring task"],mEditRec:["Modifier la tâche","Edit task"],
+mNewUnit:["Nouveau logement","New unit"],mEditUnit:["Modifier le logement","Edit unit"],
+stProps:["Propriétés","Properties"],stTaxes:["Taxes","Taxes"],stTaxesLeft:["Taxes restantes","Taxes remaining"],
+stDeps:["Dépenses","Expenses"],stRents:["Loyers perçus","Rent received"],
+stPaid:["Payé","Paid"],stDue:["À venir","Upcoming"],stLate:["En retard","Overdue"],
+instN:["Versement","Installment"],dueOn:["échéance","due"],markPaidBtn:["Marquer payé","Mark paid"],
+emptyDue:["Aucun versement en attente. 🎉","No pending installments. 🎉"],
+plannedOn:["prévu le","planned for"],chipTodo:["À faire","To do"],chipSoon:["Bientôt","Soon"],doneBtn:["Fait ✓","Done ✓"],
+emptyMaint:["Rien à prévoir pour l'instant — l'entretien est à jour.","Nothing coming up — maintenance is up to date."],
+warrChip:["Garantie →","Warranty →"],warrExpired:["Garantie expirée","Warranty expired"],
+leasePrefix:["Bail —","Lease —"],endedOn:["Échu le","Ended"],endsOn:["Fin le","Ends"],
+emptyWarr:["Aucune garantie active ni bail à surveiller.","No active warranty or lease to watch."],
+emptyBars:["Aucune dépense en","No expenses in"],
+rowMaint:["Entretien & réparations","Maintenance & repairs"],rowReno:["Rénovations (capitalisables)","Renovations (capital)"],
+rowTotal:["Coût total","Total cost"],rowNet:["Net","Net"],
+emptyPerProp:["Ajoutez d'abord une propriété dans l'onglet « Propriétés ».","Add a property first in the \"Properties\" tab."],
+purchase:["Achat","Purchased"],assessed:["Évaluation / valeur","Assessment / value"],editBtn:["Modifier","Edit"],
+emptyProps:["Aucune propriété pour le moment.","No properties yet."],
+allProps:["Toutes les propriétés","All properties"],allCats:["Toutes catégories","All categories"],
+paidOnLbl:["payé le","paid on"],paidLbl:["Payé","Paid"],
+emptyTaxes:["Aucun compte de taxes en {y}. Ajoutez-en un avec le bouton ci-dessus.","No tax account for {y}. Add one with the button above."],
+stFiltered:["Total filtré","Filtered total"],stCapital:["Dont capitalisable","Of which capital"],chipCapital:["Capitalisable","Capital"],
+emptyDeps:["Aucune dépense ne correspond aux filtres pour {y}.","No expenses match the filters for {y}."],
+lastTime:["dernière fois :","last done:"],nextOn:["prochaine :","next:"],chipOk:["OK","OK"],
+emptyRec:["Aucune tâche planifiée. Idées : ramonage, nettoyage thermopompe, filtre échangeur d'air, calfeutrage, gouttières…","No planned tasks. Ideas: chimney sweep, heat pump cleaning, HRV filter, caulking, gutters…"],
+stUnits:["Logements","Units"],stPotential:["Potentiel annuel","Annual potential"],perMonth:["/ mois","/ month"],
+leaseUntil:["Bail jusqu'au","Lease until"],leaseEnded:["Bail échu depuis le","Lease ended"],toRenew:["— à renouveler","— renew soon"],
+receivedIn:["Perçu en","Received in"],monthsOf:["mois","months"],
+emptyUnits:["Aucun logement. Ajoutez vos appartements avec le bouton ci-dessus — vous pourrez ensuite cocher les loyers perçus chaque mois.","No units. Add your apartments with the button above — you can then tick the rent received each month."],
+tNameReq:["Le nom est requis","Name is required"],tPropSaved:["Propriété enregistrée","Property saved"],
+cDelProp:["Supprimer cette propriété ainsi que ses taxes et dépenses associées ?","Delete this property along with its taxes and expenses?"],
+tPropDel:["Propriété supprimée","Property deleted"],
+tAddPropFirst:["Ajoutez d'abord une propriété","Add a property first"],
+tTotalReq:["Le montant total est requis","Total amount is required"],
+tEnterTotal:["Entrez d'abord le montant total","Enter the total amount first"],
+tGenFirst:["Générez l'échéancier avant d'enregistrer","Generate the schedule before saving"],
+tTaxSaved:["Compte de taxes enregistré","Tax account saved"],
+cDelTax:["Supprimer ce compte de taxes ?","Delete this tax account?"],tTaxDel:["Compte supprimé","Account deleted"],
+tTitleAmtReq:["Titre et montant requis","Title and amount required"],tDepSaved:["Dépense enregistrée","Expense saved"],
+cDelDep:["Supprimer cette dépense ?","Delete this expense?"],tDepDel:["Dépense supprimée","Expense deleted"],
+tTaskReq:["Le nom de la tâche est requis","Task name is required"],tTaskSaved:["Tâche enregistrée","Task saved"],
+cDelRec:["Supprimer cette tâche récurrente ?","Delete this recurring task?"],tRecDel:["Tâche supprimée","Task deleted"],
+tTaskDone:["Tâche marquée faite — prochaine :","Task marked done — next:"],
+tUnitReq:["Le nom du logement est requis","Unit name is required"],tUnitSaved:["Logement enregistré","Unit saved"],
+cDelUnit:["Supprimer ce logement et son historique de loyers ?","Delete this unit and its rent history?"],tUnitDel:["Logement supprimé","Unit deleted"],
+tNoExport:["Aucune dépense à exporter","No expenses to export"],
+tKeyReq:["Entrez votre clé maître JSONBin","Enter your JSONBin master key"],
+tNoBin:["Aucun ID de bin — faites d'abord « Envoyer » sur l'appareil source","No bin ID — first \"Send\" from the source device"],
+cCloudLoad:["Remplacer les données locales par celles du nuage ?","Replace local data with the cloud copy?"],
+sCreating:["Création du bin…","Creating bin…"],sSending:["Envoi en cours…","Sending…"],
+sCreated:["✓ Bin créé automatiquement ({id}) et données sauvegardées. Notez cet ID pour vos autres appareils.","✓ Bin created automatically ({id}) and data saved. Note this ID for your other devices."],
+tBinCreated:["Bin créé et données envoyées","Bin created and data sent"],
+sSaved:["✓ Sauvegardé dans le nuage le","✓ Saved to the cloud on"],
+sSendFail:["✗ Échec de l'envoi — vérifiez votre clé maître (et l'ID du bin s'il est renseigné).","✗ Send failed — check your master key (and the bin ID if set)."],
+sGetting:["Récupération…","Fetching…"],sGot:["✓ Données récupérées du nuage.","✓ Data fetched from the cloud."],
+sGetFail:["✗ Échec de la récupération — vérifiez la clé et l'ID.","✗ Fetch failed — check the key and ID."],
+tImported:["Données importées","Data imported"],tInvalid:["Fichier invalide","Invalid file"],
+tWiped:["Toutes les données ont été effacées","All data has been erased"],
+tInstPaid:["Versement marqué payé","Installment marked paid"],
+instDue:["— échéance","— due date"],instPaid:["payé","paid"],phAmt:["Montant $","Amount $"],
+csvYes:["Oui","Yes"],csvNo:["Non","No"],csvFile:["depenses","expenses"],
+csvHeaders:["Date;Propriété;Titre;Catégorie;Montant;Capitalisable;Fournisseur;Garantie jusqu'au;Description","Date,Property,Title,Category,Amount,Capital,Vendor,Warranty until,Description"],
+};
+const t=k=>{const v=STR[k];return v?v[LANG==='fr'?0:1]:k;};
+const catLbl=c=>LANG==='en'?(CAT_EN[c]||c):c;
+const typeLbl=v=>LANG==='en'?(TYPE_EN[v]||v):v;
+const taxName=type=>type==='municipale'?t('optMunicipal'):t('optSchool');
+const statusLbl=st=>st==='paid'?t('stPaid'):st==='late'?t('stLate'):t('stDue');
+const freqLbl=f=>t('freq'+f);
+const MOIS_FR=['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'];
+const MOIS_EN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const LMOIS=()=>LANG==='fr'?MOIS_FR:MOIS_EN;
+
+function applyStatic(){
+  document.documentElement.lang=LANG;
+  document.title=t('appTitle');
+  document.getElementById('langBtn').textContent=LANG==='fr'?'EN':'FR';
+  document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>el.placeholder=t(el.dataset.i18nPh));
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>el.innerHTML=t(el.dataset.i18nHtml));
+}
+function toggleLang(){
+  LANG=LANG==='fr'?'en':'fr';
+  DB.settings.lang=LANG;
+  applyStatic();
+  save();
+}
 
 function loadDB(){
   try{
@@ -506,19 +694,18 @@ function save(){
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 
 /* ================= Utilitaires ================= */
-const fmt$=n=>new Intl.NumberFormat('fr-CA',{style:'currency',currency:'CAD'}).format(+n||0);
-const fmtD=s=>{ if(!s)return '—'; const[a,m,j]=s.split('-'); return `${j}/${m}/${a}`; };
+const fmt$=n=>new Intl.NumberFormat(LANG==='fr'?'fr-CA':'en-CA',{style:'currency',currency:'CAD'}).format(+n||0);
+const fmtD=s=>{ if(!s)return '—'; const[a,m,j]=s.split('-'); return LANG==='fr'?`${j}/${m}/${a}`:`${MOIS_EN[+m-1]} ${+j}, ${a}`; };
 const esc=s=>(s??'').toString().replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const today=()=>new Date().toISOString().slice(0,10);
 const propName=id=>{const p=DB.properties.find(p=>p.id===id);return p?p.name:'?';};
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),2200);}
-function taxStatus(t){
-  if(!t.installments.length) return 'due';
-  if(t.installments.every(i=>i.paid)) return 'paid';
-  const next=t.installments.filter(i=>!i.paid).sort((a,b)=>a.dueDate.localeCompare(b.dueDate))[0];
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('on');clearTimeout(el._h);el._h=setTimeout(()=>el.classList.remove('on'),2200);}
+function taxStatus(tx){
+  if(!tx.installments.length) return 'due';
+  if(tx.installments.every(i=>i.paid)) return 'paid';
+  const next=tx.installments.filter(i=>!i.paid).sort((a,b)=>a.dueDate.localeCompare(b.dueDate))[0];
   return (next.dueDate && next.dueDate<today())?'late':'due';
 }
-const STATUS_LBL={paid:'Payé',due:'À venir',late:'En retard'};
 
 /* ================= Navigation ================= */
 document.getElementById('tabs').addEventListener('click',e=>{
@@ -531,7 +718,7 @@ document.getElementById('tabs').addEventListener('click',e=>{
 function selYear(){return +document.getElementById('yearPick').value;}
 function buildYearPick(){
   const ys=new Set([new Date().getFullYear()]);
-  DB.taxes.forEach(t=>ys.add(+t.year));
+  DB.taxes.forEach(tx=>ys.add(+tx.year));
   DB.expenses.forEach(e=>e.date&&ys.add(+e.date.slice(0,4)));
   ys.add(new Date().getFullYear()+1);
   const cur=document.getElementById('yearPick').value||new Date().getFullYear();
@@ -543,41 +730,41 @@ document.getElementById('yearPick').addEventListener('change',renderAll);
 /* ================= Rendu : tableau de bord ================= */
 function renderDash(){
   const Y=selYear();
-  const taxesY=DB.taxes.filter(t=>+t.year===Y);
+  const taxesY=DB.taxes.filter(tx=>+tx.year===Y);
   const depsY=DB.expenses.filter(e=>e.date&&+e.date.slice(0,4)===Y);
-  const taxTotal=taxesY.reduce((s,t)=>s+(+t.total||0),0);
-  const taxPaid=taxesY.reduce((s,t)=>s+t.installments.filter(i=>i.paid).reduce((a,i)=>a+(+i.amount||0),0),0);
+  const taxTotal=taxesY.reduce((s,tx)=>s+(+tx.total||0),0);
+  const taxPaid=taxesY.reduce((s,tx)=>s+tx.installments.filter(i=>i.paid).reduce((a,i)=>a+(+i.amount||0),0),0);
   const depTotal=depsY.reduce((s,e)=>s+(+e.amount||0),0);
   document.getElementById('dashYearLbl').textContent=Y;
   document.getElementById('dashStats').innerHTML=`
-    <div class="stat"><div class="lbl">Propriétés</div><div class="val num">${DB.properties.length}</div></div>
-    <div class="stat"><div class="lbl">Taxes ${Y}</div><div class="val num">${fmt$(taxTotal)}</div></div>
-    <div class="stat"><div class="lbl">Taxes restantes</div><div class="val num" style="color:${taxTotal-taxPaid>0?'var(--amber)':'var(--verdigris-deep)'}">${fmt$(Math.max(0,taxTotal-taxPaid))}</div></div>
-    <div class="stat"><div class="lbl">Dépenses ${Y}</div><div class="val num">${fmt$(depTotal)}</div></div>
-    ${DB.units.length?`<div class="stat"><div class="lbl">Loyers perçus ${Y}</div><div class="val num">${fmt$(DB.units.reduce((s,u)=>s+rentReceived(u,Y),0))}</div></div>`:''}`;
+    <div class="stat"><div class="lbl">${t('stProps')}</div><div class="val num">${DB.properties.length}</div></div>
+    <div class="stat"><div class="lbl">${t('stTaxes')} ${Y}</div><div class="val num">${fmt$(taxTotal)}</div></div>
+    <div class="stat"><div class="lbl">${t('stTaxesLeft')}</div><div class="val num" style="color:${taxTotal-taxPaid>0?'var(--amber)':'var(--verdigris-deep)'}">${fmt$(Math.max(0,taxTotal-taxPaid))}</div></div>
+    <div class="stat"><div class="lbl">${t('stDeps')} ${Y}</div><div class="val num">${fmt$(depTotal)}</div></div>
+    ${DB.units.length?`<div class="stat"><div class="lbl">${t('stRents')} ${Y}</div><div class="val num">${fmt$(DB.units.reduce((s,u)=>s+rentReceived(u,Y),0))}</div></div>`:''}`;
 
-  // Échéances à venir (tous comptes, non payées, triées)
+  // Échéances à venir
   const due=[];
-  DB.taxes.forEach(t=>t.installments.forEach((i,idx)=>{ if(!i.paid&&i.dueDate) due.push({t,i,idx}); }));
+  DB.taxes.forEach(tx=>tx.installments.forEach((i,idx)=>{ if(!i.paid&&i.dueDate) due.push({tx,i,idx}); }));
   due.sort((a,b)=>a.i.dueDate.localeCompare(b.i.dueDate));
-  document.getElementById('dashDue').innerHTML = due.length? due.slice(0,6).map(({t,i,idx})=>{
+  document.getElementById('dashDue').innerHTML = due.length? due.slice(0,6).map(({tx,i,idx})=>{
     const late=i.dueDate<today();
     return `<div class="item">
-      <div class="l"><div class="t">${esc(propName(t.propertyId))} — taxes ${t.type}s ${t.year}</div>
-      <div class="d">Versement ${idx+1} · échéance ${fmtD(i.dueDate)} <span class="chip ${late?'late':'due'}">${late?'En retard':'À venir'}</span></div></div>
-      <div class="amt num">${fmt$(i.amount)}<button class="btn sm ghost" style="display:block;margin-top:5px" onclick="markPaid('${t.id}',${idx})">Marquer payé</button></div>
-    </div>`;}).join('') : `<div class="empty">Aucun versement en attente. 🎉</div>`;
+      <div class="l"><div class="t">${esc(propName(tx.propertyId))} — ${taxName(tx.type)} ${tx.year}</div>
+      <div class="d">${t('instN')} ${idx+1} · ${t('dueOn')} ${fmtD(i.dueDate)} <span class="chip ${late?'late':'due'}">${late?t('stLate'):t('stDue')}</span></div></div>
+      <div class="amt num">${fmt$(i.amount)}<button class="btn sm ghost" style="display:block;margin-top:5px" onclick="markPaid('${tx.id}',${idx})">${t('markPaidBtn')}</button></div>
+    </div>`;}).join('') : `<div class="empty">${t('emptyDue')}</div>`;
 
-  // Entretien à prévoir (tâches en retard ou dues sous 30 jours)
+  // Entretien à prévoir
   const maint=DB.recurring.filter(r=>recState(r)!=='ok').sort((a,b)=>nextDue(a).localeCompare(nextDue(b)));
   document.getElementById('dashMaint').innerHTML = maint.length? maint.map(r=>`
     <div class="item">
       <div class="l"><div class="t">${esc(r.title)}</div>
-        <div class="d">${esc(propName(r.propertyId))} · prévu le ${fmtD(nextDue(r))} <span class="chip ${recState(r)}">${recState(r)==='late'?'À faire':'Bientôt'}</span></div></div>
-      <div><button class="btn sm" onclick="recDone('${r.id}')">Fait ✓</button></div>
-    </div>`).join('') : `<div class="empty">Rien à prévoir pour l'instant — l'entretien est à jour.</div>`;
+        <div class="d">${esc(propName(r.propertyId))} · ${t('plannedOn')} ${fmtD(nextDue(r))} <span class="chip ${recState(r)}">${recState(r)==='late'?t('chipTodo'):t('chipSoon')}</span></div></div>
+      <div><button class="btn sm" onclick="recDone('${r.id}')">${t('doneBtn')}</button></div>
+    </div>`).join('') : `<div class="empty">${t('emptyMaint')}</div>`;
 
-  // Garanties actives (expirent sous 90 jours en premier) + baux à renouveler
+  // Garanties actives + baux
   const soon90=(()=>{const d=new Date();d.setDate(d.getDate()+90);return d.toISOString().slice(0,10);})();
   const warr=DB.expenses.filter(e=>e.warrantyEnd&&e.warrantyEnd>=today()).sort((a,b)=>a.warrantyEnd.localeCompare(b.warrantyEnd));
   const leases=DB.units.filter(u=>u.leaseEnd&&leaseState(u)!=='ok');
@@ -585,51 +772,51 @@ function renderDash(){
   wHtml+=warr.slice(0,5).map(e=>`
     <div class="item"><div class="l"><div class="t">${esc(e.title)}</div>
       <div class="d">${esc(propName(e.propertyId))}${e.vendor?' · '+esc(e.vendor):''}</div></div>
-      <div style="text-align:right"><span class="chip ${e.warrantyEnd<=soon90?'due':'paid'}">Garantie → ${fmtD(e.warrantyEnd)}</span></div>
+      <div style="text-align:right"><span class="chip ${e.warrantyEnd<=soon90?'due':'paid'}">${t('warrChip')} ${fmtD(e.warrantyEnd)}</span></div>
     </div>`).join('');
   wHtml+=leases.map(u=>`
-    <div class="item"><div class="l"><div class="t">Bail — ${esc(u.name)}</div>
+    <div class="item"><div class="l"><div class="t">${t('leasePrefix')} ${esc(u.name)}</div>
       <div class="d">${esc(propName(u.propertyId))}${u.tenant?' · '+esc(u.tenant):''}</div></div>
-      <div style="text-align:right"><span class="chip ${leaseState(u)}">${leaseState(u)==='late'?'Échu le':'Fin le'} ${fmtD(u.leaseEnd)}</span></div>
+      <div style="text-align:right"><span class="chip ${leaseState(u)}">${leaseState(u)==='late'?t('endedOn'):t('endsOn')} ${fmtD(u.leaseEnd)}</span></div>
     </div>`).join('');
-  document.getElementById('dashWarr').innerHTML = wHtml || `<div class="empty">Aucune garantie active ni bail à surveiller.</div>`;
+  document.getElementById('dashWarr').innerHTML = wHtml || `<div class="empty">${t('emptyWarr')}</div>`;
 
   // Dépenses par catégorie
   const byCat={};depsY.forEach(e=>byCat[e.category]=(byCat[e.category]||0)+(+e.amount||0));
   const max=Math.max(1,...Object.values(byCat));
   document.getElementById('dashBars').innerHTML = Object.keys(byCat).length?
     Object.entries(byCat).sort((a,b)=>b[1]-a[1]).map(([c,v])=>`
-      <div class="bar-row"><span>${esc(c)}</span><div class="bar-track"><div class="bar-fill" style="width:${(v/max*100).toFixed(1)}%;background:${CAT_COLOR[c]||'var(--verdigris)'}"></div></div><span class="num">${fmt$(v)}</span></div>`).join('')
-    : `<div class="empty" style="border:none">Aucune dépense en ${Y}.</div>`;
+      <div class="bar-row"><span>${esc(catLbl(c))}</span><div class="bar-track"><div class="bar-fill" style="width:${(v/max*100).toFixed(1)}%;background:${CAT_COLOR[c]||'var(--verdigris)'}"></div></div><span class="num">${fmt$(v)}</span></div>`).join('')
+    : `<div class="empty" style="border:none">${t('emptyBars')} ${Y}.</div>`;
 
-  // Coût annuel par propriété (fiches)
+  // Fiches annuelles par propriété
   document.getElementById('dashPerProp').innerHTML = DB.properties.length? DB.properties.map(p=>{
-    const tM=taxesY.filter(t=>t.propertyId===p.id&&t.type==='municipale').reduce((s,t)=>s+(+t.total||0),0);
-    const tS=taxesY.filter(t=>t.propertyId===p.id&&t.type==='scolaire').reduce((s,t)=>s+(+t.total||0),0);
+    const tM=taxesY.filter(tx=>tx.propertyId===p.id&&tx.type==='municipale').reduce((s,tx)=>s+(+tx.total||0),0);
+    const tS=taxesY.filter(tx=>tx.propertyId===p.id&&tx.type==='scolaire').reduce((s,tx)=>s+(+tx.total||0),0);
     const dp=depsY.filter(e=>e.propertyId===p.id);
     const ent=dp.filter(e=>!e.capital).reduce((s,e)=>s+(+e.amount||0),0);
     const cap=dp.filter(e=>e.capital).reduce((s,e)=>s+(+e.amount||0),0);
-    const pt=taxesY.filter(t=>t.propertyId===p.id);
-    const st=pt.length?(pt.some(t=>taxStatus(t)==='late')?'late':pt.every(t=>taxStatus(t)==='paid')?'paid':'due'):null;
+    const pt=taxesY.filter(tx=>tx.propertyId===p.id);
+    const st=pt.length?(pt.some(tx=>taxStatus(tx)==='late')?'late':pt.every(tx=>taxStatus(tx)==='paid')?'paid':'due'):null;
     return `<div class="card fiche" style="--pc:${propColor(p.id)}">
-      ${st?`<div class="stamp ${st}">${STATUS_LBL[st].toUpperCase()}</div>`:''}
-      <div class="fiche-head"><div><h3>${esc(p.name)}</h3><div class="matricule">${esc(p.address||p.type||'')}</div></div></div>
+      ${st?`<div class="stamp ${st}">${statusLbl(st).toUpperCase()}</div>`:''}
+      <div class="fiche-head"><div><h3>${esc(p.name)}</h3><div class="matricule">${esc(p.address||typeLbl(p.type)||'')}</div></div></div>
       <table>
-        <tr><td>Taxes municipales</td><td class="num">${fmt$(tM)}</td></tr>
-        <tr><td>Taxes scolaires</td><td class="num">${fmt$(tS)}</td></tr>
-        <tr><td>Entretien & réparations</td><td class="num">${fmt$(ent)}</td></tr>
-        <tr><td>Rénovations (capitalisables)</td><td class="num">${fmt$(cap)}</td></tr>
-        <tr class="total"><td>Coût total ${Y}</td><td class="num">${fmt$(tM+tS+ent+cap)}</td></tr>
+        <tr><td>${t('optMunicipal')}</td><td class="num">${fmt$(tM)}</td></tr>
+        <tr><td>${t('optSchool')}</td><td class="num">${fmt$(tS)}</td></tr>
+        <tr><td>${t('rowMaint')}</td><td class="num">${fmt$(ent)}</td></tr>
+        <tr><td>${t('rowReno')}</td><td class="num">${fmt$(cap)}</td></tr>
+        <tr class="total"><td>${t('rowTotal')} ${Y}</td><td class="num">${fmt$(tM+tS+ent+cap)}</td></tr>
         ${(()=>{const rev=DB.units.filter(u=>u.propertyId===p.id).reduce((s,u)=>s+rentReceived(u,Y),0);
-          return rev?`<tr><td>Loyers perçus</td><td class="num">${fmt$(rev)}</td></tr>
-          <tr class="total"><td>Net ${Y}</td><td class="num" style="color:${rev-(tM+tS+ent+cap)>=0?'var(--verdigris-deep)':'var(--brick)'}">${fmt$(rev-(tM+tS+ent+cap))}</td></tr>`:''})()}
+          return rev?`<tr><td>${t('stRents')}</td><td class="num">${fmt$(rev)}</td></tr>
+          <tr class="total"><td>${t('rowNet')} ${Y}</td><td class="num" style="color:${rev-(tM+tS+ent+cap)>=0?'var(--verdigris-deep)':'var(--brick)'}">${fmt$(rev-(tM+tS+ent+cap))}</td></tr>`:''})()}
       </table></div>`;
-  }).join('') : `<div class="empty">Ajoutez d'abord une propriété dans l'onglet « Propriétés ».</div>`;
+  }).join('') : `<div class="empty">${t('emptyPerProp')}</div>`;
 }
 function markPaid(taxId,idx){
-  const t=DB.taxes.find(t=>t.id===taxId);if(!t)return;
-  t.installments[idx].paid=true;t.installments[idx].paidDate=today();
-  save();toast('Versement marqué payé');
+  const tx=DB.taxes.find(x=>x.id===taxId);if(!tx)return;
+  tx.installments[idx].paid=true;tx.installments[idx].paidDate=today();
+  save();toast(t('tInstPaid'));
 }
 
 /* ================= Rendu : propriétés ================= */
@@ -638,54 +825,54 @@ function renderProps(){
     <div class="card fiche" style="--pc:${propColor(p.id)}">
       <div class="fiche-head">
         <div><h3>${esc(p.name)}</h3>
-          <div class="matricule">${esc(p.type||'')}${p.lot?' · '+esc(p.lot):''}</div>
+          <div class="matricule">${esc(typeLbl(p.type)||'')}${p.lot?' · '+esc(p.lot):''}</div>
           ${p.address?`<div class="small muted">${esc(p.address)}</div>`:''}
         </div>
-        <button class="btn ghost sm" onclick="openProp('${p.id}')">Modifier</button>
+        <button class="btn ghost sm" onclick="openProp('${p.id}')">${t('editBtn')}</button>
       </div>
       <table>
-        ${p.purchaseDate?`<tr><td>Achat</td><td class="num">${fmtD(p.purchaseDate)}${p.purchasePrice?' · '+fmt$(p.purchasePrice):''}</td></tr>`:''}
-        ${p.currentValue?`<tr><td>Évaluation / valeur</td><td class="num">${fmt$(p.currentValue)}</td></tr>`:''}
+        ${p.purchaseDate?`<tr><td>${t('purchase')}</td><td class="num">${fmtD(p.purchaseDate)}${p.purchasePrice?' · '+fmt$(p.purchasePrice):''}</td></tr>`:''}
+        ${p.currentValue?`<tr><td>${t('assessed')}</td><td class="num">${fmt$(p.currentValue)}</td></tr>`:''}
       </table>
       ${p.notes?`<p class="small muted" style="margin-top:8px;white-space:pre-wrap">${esc(p.notes)}</p>`:''}
-    </div>`).join('') : `<div class="empty">Aucune propriété pour le moment.</div>`;
+    </div>`).join('') : `<div class="empty">${t('emptyProps')}</div>`;
 }
 
 /* ================= Rendu : taxes ================= */
 function fillPropSelect(sel,withAll){
   const el=document.getElementById(sel);const cur=el.value;
-  el.innerHTML=(withAll?'<option value="">Toutes les propriétés</option>':'')+
+  el.innerHTML=(withAll?`<option value="">${t('allProps')}</option>`:'')+
     DB.properties.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');
   if([...el.options].some(o=>o.value===cur)) el.value=cur;
 }
 function renderTaxes(){
   fillPropSelect('taxPropFilter',true);
   const Y=selYear(),f=document.getElementById('taxPropFilter').value;
-  const list=DB.taxes.filter(t=>+t.year===Y&&(!f||t.propertyId===f))
+  const list=DB.taxes.filter(tx=>+tx.year===Y&&(!f||tx.propertyId===f))
     .sort((a,b)=>propName(a.propertyId).localeCompare(propName(b.propertyId))||a.type.localeCompare(b.type));
-  document.getElementById('taxList').innerHTML = list.length? list.map(t=>{
-    const st=taxStatus(t);
-    const paid=t.installments.filter(i=>i.paid).reduce((s,i)=>s+(+i.amount||0),0);
-    return `<div class="card fiche" style="--pc:${propColor(t.propertyId)}">
-      <div class="stamp ${st}">${STATUS_LBL[st].toUpperCase()}</div>
+  document.getElementById('taxList').innerHTML = list.length? list.map(tx=>{
+    const st=taxStatus(tx);
+    const paid=tx.installments.filter(i=>i.paid).reduce((s,i)=>s+(+i.amount||0),0);
+    return `<div class="card fiche" style="--pc:${propColor(tx.propertyId)}">
+      <div class="stamp ${st}">${statusLbl(st).toUpperCase()}</div>
       <div class="fiche-head"><div>
-        <h3>Taxes ${t.type}s ${t.year}</h3>
-        <div class="matricule">${esc(propName(t.propertyId))}</div></div>
-        <button class="btn ghost sm" onclick="openTax('${t.id}')">Modifier</button>
+        <h3>${taxName(tx.type)} ${tx.year}</h3>
+        <div class="matricule">${esc(propName(tx.propertyId))}</div></div>
+        <button class="btn ghost sm" onclick="openTax('${tx.id}')">${t('editBtn')}</button>
       </div>
-      <div>${t.installments.map((i,idx)=>`
+      <div>${tx.installments.map((i,idx)=>`
         <div class="ech ${i.paid?'paid':''}">
-          <input type="checkbox" ${i.paid?'checked':''} onchange="togglePaid('${t.id}',${idx},this.checked)" aria-label="payé">
-          <span class="when">Versement ${idx+1} · ${fmtD(i.dueDate)}${i.paid&&i.paidDate?` <span class="small muted">(payé le ${fmtD(i.paidDate)})</span>`:''}</span>
+          <input type="checkbox" ${i.paid?'checked':''} onchange="togglePaid('${tx.id}',${idx},this.checked)" aria-label="${t('instPaid')}">
+          <span class="when">${t('instN')} ${idx+1} · ${fmtD(i.dueDate)}${i.paid&&i.paidDate?` <span class="small muted">(${t('paidOnLbl')} ${fmtD(i.paidDate)})</span>`:''}</span>
           <span class="amt num">${fmt$(i.amount)}</span>
         </div>`).join('')}</div>
-      <table style="margin-top:8px"><tr class="total"><td>Payé ${fmt$(paid)} / total</td><td class="num">${fmt$(t.total)}</td></tr></table>
-      ${t.notes?`<p class="small muted" style="margin-top:6px">${esc(t.notes)}</p>`:''}
-    </div>`;}).join('') : `<div class="empty">Aucun compte de taxes en ${Y}. Ajoutez-en un avec le bouton ci-dessus.</div>`;
+      <table style="margin-top:8px"><tr class="total"><td>${t('paidLbl')} ${fmt$(paid)} / total</td><td class="num">${fmt$(tx.total)}</td></tr></table>
+      ${tx.notes?`<p class="small muted" style="margin-top:6px">${esc(tx.notes)}</p>`:''}
+    </div>`;}).join('') : `<div class="empty">${t('emptyTaxes').replace('{y}',Y)}</div>`;
 }
 function togglePaid(taxId,idx,val){
-  const t=DB.taxes.find(t=>t.id===taxId);if(!t)return;
-  t.installments[idx].paid=val;t.installments[idx].paidDate=val?today():null;
+  const tx=DB.taxes.find(x=>x.id===taxId);if(!tx)return;
+  tx.installments[idx].paid=val;tx.installments[idx].paidDate=val?today():null;
   save();
 }
 
@@ -693,32 +880,34 @@ function togglePaid(taxId,idx,val){
 function renderDeps(){
   fillPropSelect('depPropFilter',true);
   const catSel=document.getElementById('depCatFilter');
-  if(catSel.options.length<2) catSel.innerHTML='<option value="">Toutes catégories</option>'+CATS.map(c=>`<option>${c}</option>`).join('');
+  const curCat=catSel.value;
+  catSel.innerHTML=`<option value="">${t('allCats')}</option>`+CATS.map(c=>`<option value="${c}">${catLbl(c)}</option>`).join('');
+  if([...catSel.options].some(o=>o.value===curCat)) catSel.value=curCat;
   const Y=selYear(),fp=document.getElementById('depPropFilter').value,fc=catSel.value;
   const list=DB.expenses.filter(e=>e.date&&+e.date.slice(0,4)===Y&&(!fp||e.propertyId===fp)&&(!fc||e.category===fc))
     .sort((a,b)=>b.date.localeCompare(a.date));
   const tot=list.reduce((s,e)=>s+(+e.amount||0),0);
   const cap=list.filter(e=>e.capital).reduce((s,e)=>s+(+e.amount||0),0);
   document.getElementById('depStats').innerHTML=`
-    <div class="stat"><div class="lbl">Total filtré ${Y}</div><div class="val num">${fmt$(tot)}</div></div>
-    <div class="stat"><div class="lbl">Dont capitalisable</div><div class="val num">${fmt$(cap)}</div></div>`;
+    <div class="stat"><div class="lbl">${t('stFiltered')} ${Y}</div><div class="val num">${fmt$(tot)}</div></div>
+    <div class="stat"><div class="lbl">${t('stCapital')}</div><div class="val num">${fmt$(cap)}</div></div>`;
   document.getElementById('depList').innerHTML = list.length? list.map(e=>`
     <div class="item" onclick="openDep('${e.id}')" style="cursor:pointer">
       <div class="l"><div class="t">${esc(e.title)}</div>
         <div class="d">${esc(propName(e.propertyId))} · ${fmtD(e.date)}${e.vendor?' · '+esc(e.vendor):''}</div>
         ${e.description?`<div class="d">${esc(e.description)}</div>`:''}
-        <div style="margin-top:5px"><span class="chip cat" style="--cc:${CAT_COLOR[e.category]||'#64748B'}">${esc(e.category)}</span>${e.capital?' <span class="chip capital">Capitalisable</span>':''}${e.warrantyEnd?` <span class="chip ${e.warrantyEnd>=today()?'paid':'cat'}">Garantie ${e.warrantyEnd>=today()?'→ '+fmtD(e.warrantyEnd):'expirée'}</span>`:''}</div>
+        <div style="margin-top:5px"><span class="chip cat" style="--cc:${CAT_COLOR[e.category]||'#64748B'}">${esc(catLbl(e.category))}</span>${e.capital?` <span class="chip capital">${t('chipCapital')}</span>`:''}${e.warrantyEnd?` <span class="chip ${e.warrantyEnd>=today()?'paid':'cat'}">${e.warrantyEnd>=today()?t('warrChip')+' '+fmtD(e.warrantyEnd):t('warrExpired')}</span>`:''}</div>
       </div>
       <div class="amt num">${fmt$(e.amount)}</div>
-    </div>`).join('') : `<div class="empty">Aucune dépense ne correspond aux filtres pour ${Y}.</div>`;
+    </div>`).join('') : `<div class="empty">${t('emptyDeps').replace('{y}',Y)}</div>`;
 }
 
 /* ================= Modals : propriété ================= */
 let editPropId=null;
 function openProp(id){
   editPropId=id||null;
-  const p=DB.properties.find(p=>p.id===id)||{};
-  propModalTitle.textContent=id?'Modifier la propriété':'Nouvelle propriété';
+  const p=DB.properties.find(x=>x.id===id)||{};
+  propModalTitle.textContent=id?t('mEditProp'):t('mNewProp');
   pName.value=p.name||'';pAddr.value=p.address||'';pType.value=p.type||'Maison';
   pLot.value=p.lot||'';pDate.value=p.purchaseDate||'';pPrice.value=p.purchasePrice||'';
   pValue.value=p.currentValue||'';pNotes.value=p.notes||'';
@@ -726,33 +915,33 @@ function openProp(id){
   openOv('ovProp');
 }
 function saveProp(){
-  if(!pName.value.trim())return toast('Le nom est requis');
+  if(!pName.value.trim())return toast(t('tNameReq'));
   const data={name:pName.value.trim(),address:pAddr.value.trim(),type:pType.value,lot:pLot.value.trim(),
     purchaseDate:pDate.value,purchasePrice:pPrice.value,currentValue:pValue.value,notes:pNotes.value.trim()};
-  if(editPropId)Object.assign(DB.properties.find(p=>p.id===editPropId),data);
+  if(editPropId)Object.assign(DB.properties.find(x=>x.id===editPropId),data);
   else DB.properties.push(Object.assign({id:uid()},data));
-  closeOv('ovProp');save();toast('Propriété enregistrée');
+  closeOv('ovProp');save();toast(t('tPropSaved'));
 }
 function deleteProp(){
-  if(!confirm('Supprimer cette propriété ainsi que ses taxes et dépenses associées ?'))return;
-  DB.taxes=DB.taxes.filter(t=>t.propertyId!==editPropId);
+  if(!confirm(t('cDelProp')))return;
+  DB.taxes=DB.taxes.filter(x=>x.propertyId!==editPropId);
   DB.expenses=DB.expenses.filter(e=>e.propertyId!==editPropId);
   DB.recurring=DB.recurring.filter(r=>r.propertyId!==editPropId);
   DB.units=DB.units.filter(u=>u.propertyId!==editPropId);
   DB.properties=DB.properties.filter(p=>p.id!==editPropId);
-  closeOv('ovProp');save();toast('Propriété supprimée');
+  closeOv('ovProp');save();toast(t('tPropDel'));
 }
 
 /* ================= Modals : taxes ================= */
 let editTaxId=null;
 function openTax(id){
-  if(!DB.properties.length)return toast('Ajoutez d\'abord une propriété');
+  if(!DB.properties.length)return toast(t('tAddPropFirst'));
   editTaxId=id||null;
   fillPropSelect('tProp',false);
-  const t=DB.taxes.find(t=>t.id===id);
-  taxModalTitle.textContent=id?'Modifier le compte de taxes':'Nouveau compte de taxes';
-  if(t){tProp.value=t.propertyId;tYear.value=t.year;tType.value=t.type;tTotal.value=t.total;tNotes.value=t.notes||'';
-    tCount.value=t.installments.length||1;renderInstRows(t.installments);}
+  const tx=DB.taxes.find(x=>x.id===id);
+  taxModalTitle.textContent=id?t('mEditTax'):t('mNewTax');
+  if(tx){tProp.value=tx.propertyId;tYear.value=tx.year;tType.value=tx.type;tTotal.value=tx.total;tNotes.value=tx.notes||'';
+    tCount.value=tx.installments.length||1;renderInstRows(tx.installments);}
   else{tYear.value=selYear();tType.value='municipale';tTotal.value='';tNotes.value='';tCount.value=4;tFirst.value='';renderInstRows([]);}
   tDelete.style.display=id?'block':'none';
   openOv('ovTax');
@@ -760,14 +949,14 @@ function openTax(id){
 function renderInstRows(list){
   tInstallments.innerHTML=list.map((i,idx)=>`
     <div class="fgrid" style="align-items:end;margin-bottom:7px" data-inst>
-      <div class="frow" style="margin:0"><label>Versement ${idx+1} — échéance</label><input type="date" class="i-date" value="${i.dueDate||''}"></div>
-      <div class="frow" style="margin:0"><label class="check" style="text-transform:none;letter-spacing:0;margin-bottom:4px"><input type="checkbox" class="i-paid" ${i.paid?'checked':''}>payé</label>
-      <input type="number" step="0.01" inputmode="decimal" class="i-amt" value="${i.amount??''}" placeholder="Montant $"></div>
+      <div class="frow" style="margin:0"><label>${t('instN')} ${idx+1} ${t('instDue')}</label><input type="date" class="i-date" value="${i.dueDate||''}"></div>
+      <div class="frow" style="margin:0"><label class="check" style="text-transform:none;letter-spacing:0;margin-bottom:4px"><input type="checkbox" class="i-paid" ${i.paid?'checked':''}>${t('instPaid')}</label>
+      <input type="number" step="0.01" inputmode="decimal" class="i-amt" value="${i.amount??''}" placeholder="${t('phAmt')}"></div>
     </div>`).join('');
 }
 function genInstallments(){
   const n=+tCount.value,tot=+tTotal.value;
-  if(!tot)return toast('Entrez d\'abord le montant total');
+  if(!tot)return toast(t('tEnterTotal'));
   const base=Math.floor(tot/n*100)/100;
   const first=tFirst.value?new Date(tFirst.value+'T12:00:00'):new Date(selYear(),1,1);
   const list=[];let acc=0;
@@ -779,34 +968,36 @@ function genInstallments(){
   renderInstRows(list);
 }
 function saveTax(){
-  if(!+tTotal.value)return toast('Le montant total est requis');
+  if(!+tTotal.value)return toast(t('tTotalReq'));
   const installments=[...tInstallments.querySelectorAll('[data-inst]')].map(r=>({
     dueDate:r.querySelector('.i-date').value,
     amount:+r.querySelector('.i-amt').value||0,
     paid:r.querySelector('.i-paid').checked,
     paidDate:r.querySelector('.i-paid').checked?today():null
   }));
-  if(!installments.length)return toast('Générez l\'échéancier avant d\'enregistrer');
+  if(!installments.length)return toast(t('tGenFirst'));
   const data={propertyId:tProp.value,year:+tYear.value,type:tType.value,total:+tTotal.value,notes:tNotes.value.trim(),installments};
-  if(editTaxId)Object.assign(DB.taxes.find(t=>t.id===editTaxId),data);
+  if(editTaxId)Object.assign(DB.taxes.find(x=>x.id===editTaxId),data);
   else DB.taxes.push(Object.assign({id:uid()},data));
-  closeOv('ovTax');buildYearPick();save();toast('Compte de taxes enregistré');
+  closeOv('ovTax');buildYearPick();save();toast(t('tTaxSaved'));
 }
 function deleteTax(){
-  if(!confirm('Supprimer ce compte de taxes ?'))return;
-  DB.taxes=DB.taxes.filter(t=>t.id!==editTaxId);
-  closeOv('ovTax');save();toast('Compte supprimé');
+  if(!confirm(t('cDelTax')))return;
+  DB.taxes=DB.taxes.filter(x=>x.id!==editTaxId);
+  closeOv('ovTax');save();toast(t('tTaxDel'));
 }
 
 /* ================= Modals : dépenses ================= */
 let editDepId=null;
 function openDep(id){
-  if(!DB.properties.length)return toast('Ajoutez d\'abord une propriété');
+  if(!DB.properties.length)return toast(t('tAddPropFirst'));
   editDepId=id||null;
   fillPropSelect('dProp',false);
-  if(dCat.options.length<2)dCat.innerHTML=CATS.map(c=>`<option>${c}</option>`).join('');
-  const e=DB.expenses.find(e=>e.id===id);
-  depModalTitle.textContent=id?'Modifier la dépense':'Nouvelle dépense';
+  const curD=dCat.value;
+  dCat.innerHTML=CATS.map(c=>`<option value="${c}">${catLbl(c)}</option>`).join('');
+  if([...dCat.options].some(o=>o.value===curD)) dCat.value=curD;
+  const e=DB.expenses.find(x=>x.id===id);
+  depModalTitle.textContent=id?t('mEditDep'):t('mNewDep');
   if(e){dProp.value=e.propertyId;dDate.value=e.date;dAmt.value=e.amount;dCat.value=e.category;
     dTitle.value=e.title;dVendor.value=e.vendor||'';dWarr.value=e.warrantyEnd||'';dDesc.value=e.description||'';dCapital.checked=!!e.capital;}
   else{dDate.value=today();dAmt.value='';dCat.value='Entretien';dTitle.value='';dVendor.value='';dWarr.value='';dDesc.value='';dCapital.checked=false;}
@@ -814,30 +1005,28 @@ function openDep(id){
   openOv('ovDep');
 }
 function saveDep(){
-  if(!dTitle.value.trim()||!+dAmt.value)return toast('Titre et montant requis');
+  if(!dTitle.value.trim()||!+dAmt.value)return toast(t('tTitleAmtReq'));
   const data={propertyId:dProp.value,date:dDate.value,amount:+dAmt.value,category:dCat.value,
     title:dTitle.value.trim(),vendor:dVendor.value.trim(),warrantyEnd:dWarr.value,description:dDesc.value.trim(),capital:dCapital.checked};
-  if(editDepId)Object.assign(DB.expenses.find(e=>e.id===editDepId),data);
+  if(editDepId)Object.assign(DB.expenses.find(x=>x.id===editDepId),data);
   else DB.expenses.push(Object.assign({id:uid()},data));
-  closeOv('ovDep');buildYearPick();save();toast('Dépense enregistrée');
+  closeOv('ovDep');buildYearPick();save();toast(t('tDepSaved'));
 }
 function deleteDep(){
-  if(!confirm('Supprimer cette dépense ?'))return;
+  if(!confirm(t('cDelDep')))return;
   DB.expenses=DB.expenses.filter(e=>e.id!==editDepId);
-  closeOv('ovDep');save();toast('Dépense supprimée');
+  closeOv('ovDep');save();toast(t('tDepDel'));
 }
 
-
 /* ================= Entretien planifié (récurrent) ================= */
-const FREQ_LBL={1:'Mensuelle',3:'Aux 3 mois',6:'Aux 6 mois',12:'Annuelle',24:'Aux 2 ans',60:'Aux 5 ans'};
 function nextDue(r){
   if(!r.lastDone) return today();
   const d=new Date(r.lastDone+'T12:00:00');d.setMonth(d.getMonth()+ +r.freq);
   return d.toISOString().slice(0,10);
 }
 function recState(r){
-  const nd=nextDue(r),t=today();
-  if(nd<=t)return 'late';
+  const nd=nextDue(r),td=today();
+  if(nd<=td)return 'late';
   const soon=new Date();soon.setDate(soon.getDate()+30);
   return nd<=soon.toISOString().slice(0,10)?'due':'ok';
 }
@@ -847,52 +1036,51 @@ function renderRec(){
     const st=recState(r);
     return `<div class="item">
       <div class="l"><div class="t">${esc(r.title)}</div>
-        <div class="d">${esc(propName(r.propertyId))} · ${FREQ_LBL[r.freq]||''} · dernière fois : ${fmtD(r.lastDone)}</div>
-        <div style="margin-top:5px"><span class="chip ${st==='ok'?'paid':st}">${st==='late'?'À faire':st==='due'?'Bientôt':'OK'} — prochaine : ${fmtD(nextDue(r))}</span></div>
+        <div class="d">${esc(propName(r.propertyId))} · ${freqLbl(r.freq)} · ${t('lastTime')} ${fmtD(r.lastDone)}</div>
+        <div style="margin-top:5px"><span class="chip ${st==='ok'?'paid':st}">${st==='late'?t('chipTodo'):st==='due'?t('chipSoon'):t('chipOk')} — ${t('nextOn')} ${fmtD(nextDue(r))}</span></div>
       </div>
       <div style="text-align:right;white-space:nowrap">
-        <button class="btn sm" onclick="recDone('${r.id}')">Fait ✓</button>
-        <button class="btn ghost sm" onclick="openRec('${r.id}')" style="margin-top:5px;display:block;width:100%">Modifier</button>
+        <button class="btn sm" onclick="recDone('${r.id}')">${t('doneBtn')}</button>
+        <button class="btn ghost sm" onclick="openRec('${r.id}')" style="margin-top:5px;display:block;width:100%">${t('editBtn')}</button>
       </div>
-    </div>`;}).join('') : `<div class="empty">Aucune tâche planifiée. Idées : ramonage, nettoyage thermopompe, filtre échangeur d'air, calfeutrage, gouttières…</div>`;
+    </div>`;}).join('') : `<div class="empty">${t('emptyRec')}</div>`;
 }
 function recDone(id){
-  const r=DB.recurring.find(r=>r.id===id);if(!r)return;
-  r.lastDone=today();save();toast('Tâche marquée faite — prochaine : '+fmtD(nextDue(r)));
+  const r=DB.recurring.find(x=>x.id===id);if(!r)return;
+  r.lastDone=today();save();toast(t('tTaskDone')+' '+fmtD(nextDue(r)));
 }
 let editRecId=null;
 function openRec(id){
-  if(!DB.properties.length)return toast('Ajoutez d\'abord une propriété');
+  if(!DB.properties.length)return toast(t('tAddPropFirst'));
   editRecId=id||null;
   fillPropSelect('rProp',false);
-  const r=DB.recurring.find(r=>r.id===id);
-  recModalTitle.textContent=id?'Modifier la tâche':'Nouvelle tâche récurrente';
+  const r=DB.recurring.find(x=>x.id===id);
+  recModalTitle.textContent=id?t('mEditRec'):t('mNewRec');
   if(r){rProp.value=r.propertyId;rTitle.value=r.title;rFreq.value=r.freq;rLast.value=r.lastDone||'';rNotes.value=r.notes||'';}
   else{rTitle.value='';rFreq.value='12';rLast.value='';rNotes.value='';}
   rDelete.style.display=id?'block':'none';
   openOv('ovRec');
 }
 function saveRec(){
-  if(!rTitle.value.trim())return toast('Le nom de la tâche est requis');
+  if(!rTitle.value.trim())return toast(t('tTaskReq'));
   const data={propertyId:rProp.value,title:rTitle.value.trim(),freq:+rFreq.value,lastDone:rLast.value,notes:rNotes.value.trim()};
-  if(editRecId)Object.assign(DB.recurring.find(r=>r.id===editRecId),data);
+  if(editRecId)Object.assign(DB.recurring.find(x=>x.id===editRecId),data);
   else DB.recurring.push(Object.assign({id:uid()},data));
-  closeOv('ovRec');save();toast('Tâche enregistrée');
+  closeOv('ovRec');save();toast(t('tTaskSaved'));
 }
 function deleteRec(){
-  if(!confirm('Supprimer cette tâche récurrente ?'))return;
+  if(!confirm(t('cDelRec')))return;
   DB.recurring=DB.recurring.filter(r=>r.id!==editRecId);
-  closeOv('ovRec');save();toast('Tâche supprimée');
+  closeOv('ovRec');save();toast(t('tRecDel'));
 }
 
 /* ================= Location (logements & loyers) ================= */
-const MOIS=['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'];
 function unitPay(u,y){ if(!u.payments)u.payments={}; if(!u.payments[y])u.payments[y]=Array(12).fill(false); return u.payments[y]; }
 function rentReceived(u,y){ return unitPay(u,y).filter(Boolean).length*(+u.monthlyRent||0); }
 function leaseState(u){
   if(!u.leaseEnd)return null;
-  const t=today();
-  if(u.leaseEnd<t)return 'late';
+  const td=today();
+  if(u.leaseEnd<td)return 'late';
   const soon=new Date();soon.setDate(soon.getDate()+90);
   return u.leaseEnd<=soon.toISOString().slice(0,10)?'due':'ok';
 }
@@ -904,34 +1092,34 @@ function renderLoc(){
   const received=list.reduce((s,u)=>s+rentReceived(u,Y),0);
   const expected=list.reduce((s,u)=>s+(+u.monthlyRent||0)*12,0);
   document.getElementById('locStats').innerHTML=`
-    <div class="stat"><div class="lbl">Logements</div><div class="val num">${list.length}</div></div>
-    <div class="stat"><div class="lbl">Loyers perçus ${Y}</div><div class="val num">${fmt$(received)}</div></div>
-    <div class="stat"><div class="lbl">Potentiel annuel</div><div class="val num">${fmt$(expected)}</div></div>`;
+    <div class="stat"><div class="lbl">${t('stUnits')}</div><div class="val num">${list.length}</div></div>
+    <div class="stat"><div class="lbl">${t('stRents')} ${Y}</div><div class="val num">${fmt$(received)}</div></div>
+    <div class="stat"><div class="lbl">${t('stPotential')}</div><div class="val num">${fmt$(expected)}</div></div>`;
   document.getElementById('unitList').innerHTML = list.length? list.map(u=>{
     const pays=unitPay(u,Y),ls=leaseState(u);
     return `<div class="card fiche" style="--pc:${propColor(u.propertyId)}">
       <div class="fiche-head"><div>
         <h3>${esc(u.name)} <span class="small muted" style="font-family:var(--body);font-weight:500">· ${esc(propName(u.propertyId))}</span></h3>
-        <div class="matricule">${u.tenant?esc(u.tenant)+' · ':''}${fmt$(u.monthlyRent)} / mois</div>
-        ${u.leaseEnd?`<div style="margin-top:4px"><span class="chip ${ls==='ok'?'cat':ls}">Bail ${ls==='late'?'échu depuis le':'jusqu\'au'} ${fmtD(u.leaseEnd)}${ls==='due'?' — à renouveler':''}</span></div>`:''}
+        <div class="matricule">${u.tenant?esc(u.tenant)+' · ':''}${fmt$(u.monthlyRent)} ${t('perMonth')}</div>
+        ${u.leaseEnd?`<div style="margin-top:4px"><span class="chip ${ls==='ok'?'cat':ls}">${ls==='late'?t('leaseEnded'):t('leaseUntil')} ${fmtD(u.leaseEnd)}${ls==='due'?' '+t('toRenew'):''}</span></div>`:''}
       </div>
-      <button class="btn ghost sm" onclick="openUnit('${u.id}')">Modifier</button></div>
-      <div class="months">${MOIS.map((m,i)=>`<div class="month ${pays[i]?'on':''}" role="button" tabindex="0" onclick="toggleRent('${u.id}',${i})" onkeydown="if(event.key==='Enter')toggleRent('${u.id}',${i})">${m}</div>`).join('')}</div>
-      <table style="margin-top:9px"><tr class="total"><td>Perçu en ${Y} (${pays.filter(Boolean).length}/12 mois)</td><td class="num">${fmt$(rentReceived(u,Y))}</td></tr></table>
+      <button class="btn ghost sm" onclick="openUnit('${u.id}')">${t('editBtn')}</button></div>
+      <div class="months">${LMOIS().map((m,i)=>`<div class="month ${pays[i]?'on':''}" role="button" tabindex="0" onclick="toggleRent('${u.id}',${i})" onkeydown="if(event.key==='Enter')toggleRent('${u.id}',${i})">${m}</div>`).join('')}</div>
+      <table style="margin-top:9px"><tr class="total"><td>${t('receivedIn')} ${Y} (${pays.filter(Boolean).length}/12 ${t('monthsOf')})</td><td class="num">${fmt$(rentReceived(u,Y))}</td></tr></table>
       ${u.notes?`<p class="small muted" style="margin-top:6px;white-space:pre-wrap">${esc(u.notes)}</p>`:''}
-    </div>`;}).join('') : `<div class="empty">Aucun logement. Ajoutez vos appartements avec le bouton ci-dessus — vous pourrez ensuite cocher les loyers perçus chaque mois.</div>`;
+    </div>`;}).join('') : `<div class="empty">${t('emptyUnits')}</div>`;
 }
 function toggleRent(unitId,m){
-  const u=DB.units.find(u=>u.id===unitId);if(!u)return;
+  const u=DB.units.find(x=>x.id===unitId);if(!u)return;
   const pays=unitPay(u,selYear());pays[m]=!pays[m];save();
 }
 let editUnitId=null;
 function openUnit(id){
-  if(!DB.properties.length)return toast('Ajoutez d\'abord une propriété');
+  if(!DB.properties.length)return toast(t('tAddPropFirst'));
   editUnitId=id||null;
   fillPropSelect('uProp',false);
-  const u=DB.units.find(u=>u.id===id);
-  unitModalTitle.textContent=id?'Modifier le logement':'Nouveau logement';
+  const u=DB.units.find(x=>x.id===id);
+  unitModalTitle.textContent=id?t('mEditUnit'):t('mNewUnit');
   if(u){uProp.value=u.propertyId;uName.value=u.name;uRent.value=u.monthlyRent||'';uTenant.value=u.tenant||'';
     uStart.value=u.leaseStart||'';uEnd.value=u.leaseEnd||'';uNotes.value=u.notes||'';}
   else{uName.value='';uRent.value='';uTenant.value='';uStart.value='';uEnd.value='';uNotes.value='';}
@@ -939,17 +1127,17 @@ function openUnit(id){
   openOv('ovUnit');
 }
 function saveUnit(){
-  if(!uName.value.trim())return toast('Le nom du logement est requis');
+  if(!uName.value.trim())return toast(t('tUnitReq'));
   const data={propertyId:uProp.value,name:uName.value.trim(),monthlyRent:uRent.value,tenant:uTenant.value.trim(),
     leaseStart:uStart.value,leaseEnd:uEnd.value,notes:uNotes.value.trim()};
-  if(editUnitId)Object.assign(DB.units.find(u=>u.id===editUnitId),data);
+  if(editUnitId)Object.assign(DB.units.find(x=>x.id===editUnitId),data);
   else DB.units.push(Object.assign({id:uid(),payments:{}},data));
-  closeOv('ovUnit');save();toast('Logement enregistré');
+  closeOv('ovUnit');save();toast(t('tUnitSaved'));
 }
 function deleteUnit(){
-  if(!confirm('Supprimer ce logement et son historique de loyers ?'))return;
+  if(!confirm(t('cDelUnit')))return;
   DB.units=DB.units.filter(u=>u.id!==editUnitId);
-  closeOv('ovUnit');save();toast('Logement supprimé');
+  closeOv('ovUnit');save();toast(t('tUnitDel'));
 }
 
 /* ================= Export CSV ================= */
@@ -957,15 +1145,19 @@ function exportCSV(){
   const Y=selYear(),fp=document.getElementById('depPropFilter').value,fc=document.getElementById('depCatFilter').value;
   const list=DB.expenses.filter(e=>e.date&&+e.date.slice(0,4)===Y&&(!fp||e.propertyId===fp)&&(!fc||e.category===fc))
     .sort((a,b)=>a.date.localeCompare(b.date));
-  if(!list.length)return toast('Aucune dépense à exporter');
+  if(!list.length)return toast(t('tNoExport'));
+  const sep=LANG==='fr'?';':',';
   const q=v=>'"'+(v??'').toString().replace(/"/g,'""')+'"';
-  const rows=[['Date','Propriété','Titre','Catégorie','Montant','Capitalisable','Fournisseur','Garantie jusqu\'au','Description'].join(';')];
-  list.forEach(e=>rows.push([e.date,q(propName(e.propertyId)),q(e.title),q(e.category),
-    (+e.amount||0).toFixed(2).replace('.',','),e.capital?'Oui':'Non',q(e.vendor),e.warrantyEnd||'',q(e.description)].join(';')));
+  const rows=[t('csvHeaders')];
+  list.forEach(e=>{
+    const amt=LANG==='fr'?(+e.amount||0).toFixed(2).replace('.',','):(+e.amount||0).toFixed(2);
+    rows.push([e.date,q(propName(e.propertyId)),q(e.title),q(catLbl(e.category)),amt,
+      e.capital?t('csvYes'):t('csvNo'),q(e.vendor),e.warrantyEnd||'',q(e.description)].join(sep));
+  });
   const blob=new Blob(['\ufeff'+rows.join('\r\n')],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
-  a.download=`depenses-${Y}${fp?'-'+propName(fp).replace(/\s+/g,'_'):''}.csv`;a.click();
+  a.download=`${t('csvFile')}-${Y}${fp?'-'+propName(fp).replace(/\s+/g,'_'):''}.csv`;a.click();
   URL.revokeObjectURL(a.href);
 }
 
@@ -974,7 +1166,7 @@ function openOv(id){document.getElementById(id).classList.add('on');}
 function closeOv(id){document.getElementById(id).classList.remove('on');}
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('on');}));
 
-/* ================= Export / Import ================= */
+/* ================= Export / Import / Effacement ================= */
 function exportJSON(){
   const blob=new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});
   const a=document.createElement('a');
@@ -989,57 +1181,87 @@ function importJSON(inp){
       const d=JSON.parse(r.result);
       if(!d.properties)throw 0;
       DB=Object.assign({properties:[],taxes:[],expenses:[],recurring:[],units:[],settings:{}},d);
-      buildYearPick();save();toast('Données importées');
-    }catch(e){toast('Fichier invalide');}};
+      LANG=DB.settings.lang||LANG;applyStatic();
+      buildYearPick();save();toast(t('tImported'));
+    }catch(e){toast(t('tInvalid'));}};
   r.readAsText(f);inp.value='';
 }
+function openWipe(){
+  wipeInput.value='';wipeCheck();
+  openOv('ovWipe');
+  setTimeout(()=>wipeInput.focus(),50);
+}
+function wipeCheck(){
+  const ok=wipeInput.value.trim().toUpperCase()===t('wipeWord');
+  wipeBtn.disabled=!ok;wipeBtn.style.opacity=ok?'1':'.45';
+}
 function wipeAll(){
-  if(!confirm('Effacer TOUTES les données ? Cette action est irréversible.'))return;
-  DB={properties:[],taxes:[],expenses:[],recurring:[],units:[],settings:{}};
-  buildYearPick();save();toast('Données effacées');
+  if(wipeInput.value.trim().toUpperCase()!==t('wipeWord'))return;
+  DB={properties:[],taxes:[],expenses:[],recurring:[],units:[],settings:{lang:LANG}};
+  closeOv('ovWipe');buildYearPick();save();toast(t('tWiped'));
 }
 
 /* ================= Synchro JSONBin ================= */
 function syncCfg(){DB.settings.binKey=binKey.value.trim();DB.settings.binId=binId.value.trim();}
 async function cloudSave(){
-  syncCfg();if(!DB.settings.binKey||!DB.settings.binId)return toast('Clé et ID requis');
-  syncStatus.textContent='Envoi en cours…';
+  syncCfg();if(!DB.settings.binKey)return toast(t('tKeyReq'));
   try{
+    if(!DB.settings.binId){
+      syncStatus.textContent=t('sCreating');
+      const r=await fetch('https://api.jsonbin.io/v3/b',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','X-Master-Key':DB.settings.binKey,
+          'X-Bin-Name':'mes-proprietes','X-Bin-Private':'true'},
+        body:JSON.stringify(DB)});
+      if(!r.ok)throw 0;
+      const j=await r.json();
+      DB.settings.binId=(j.metadata&&j.metadata.id)||'';
+      if(!DB.settings.binId)throw 0;
+      binId.value=DB.settings.binId;
+      save();
+      syncStatus.textContent=t('sCreated').replace('{id}',DB.settings.binId);
+      toast(t('tBinCreated'));
+      return;
+    }
+    syncStatus.textContent=t('sSending');
     const r=await fetch(`https://api.jsonbin.io/v3/b/${DB.settings.binId}`,{
       method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':DB.settings.binKey},
       body:JSON.stringify(DB)});
     if(!r.ok)throw 0;
-    save();syncStatus.textContent='✓ Sauvegardé dans le nuage le '+new Date().toLocaleString('fr-CA');
-  }catch(e){syncStatus.textContent='✗ Échec de l\'envoi — vérifiez la clé et l\'ID.';}
+    save();syncStatus.textContent=t('sSaved')+' '+new Date().toLocaleString(LANG==='fr'?'fr-CA':'en-CA');
+  }catch(e){syncStatus.textContent=t('sSendFail');}
 }
 async function cloudLoad(){
-  syncCfg();if(!DB.settings.binKey||!DB.settings.binId)return toast('Clé et ID requis');
-  if(!confirm('Remplacer les données locales par celles du nuage ?'))return;
-  syncStatus.textContent='Récupération…';
+  syncCfg();if(!DB.settings.binKey)return toast(t('tKeyReq'));
+  if(!DB.settings.binId)return toast(t('tNoBin'));
+  if(!confirm(t('cCloudLoad')))return;
+  syncStatus.textContent=t('sGetting');
   try{
     const r=await fetch(`https://api.jsonbin.io/v3/b/${DB.settings.binId}/latest`,{
       headers:{'X-Master-Key':DB.settings.binKey}});
     if(!r.ok)throw 0;
     const d=(await r.json()).record;
-    const cfg={binKey:DB.settings.binKey,binId:DB.settings.binId};
+    const cfg={binKey:DB.settings.binKey,binId:DB.settings.binId,lang:LANG};
     DB=Object.assign({properties:[],taxes:[],expenses:[],recurring:[],units:[],settings:{}},d);
     DB.settings=Object.assign(DB.settings,cfg);
-    buildYearPick();save();syncStatus.textContent='✓ Données récupérées du nuage.';
-  }catch(e){syncStatus.textContent='✗ Échec de la récupération — vérifiez la clé et l\'ID.';}
+    buildYearPick();save();syncStatus.textContent=t('sGot');
+  }catch(e){syncStatus.textContent=t('sGetFail');}
 }
 
 /* ================= Rendu global & démarrage ================= */
 function renderAll(){renderDash();renderProps();renderTaxes();renderDeps();renderRec();renderLoc();}
 loadDB();
+LANG=DB.settings.lang||'fr';
 binKey.value=DB.settings.binKey||'';binId.value=DB.settings.binId||'';
 buildYearPick();
+applyStatic();
 renderAll();
 
 /* Manifeste PWA minimal (installable) */
 try{
-  const icon='data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#1F5A4E"/><path d="M50 22 22 46h8v30h40V46h8z" fill="#F5F4EF"/><rect x="44" y="58" width="12" height="18" fill="#1F5A4E"/></svg>`);
-  const man={name:'Mes Propriétés',short_name:'Propriétés',start_url:location.href,display:'standalone',
-    background_color:'#F5F4EF',theme_color:'#1F5A4E',icons:[{src:icon,sizes:'any',type:'image/svg+xml'}]};
+  const icon='data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0E3A31"/><stop offset=".5" stop-color="#175A4B"/><stop offset="1" stop-color="#2F8A74"/></linearGradient></defs><rect width="100" height="100" rx="22" fill="url(#g)"/><path d="M50 20 20 46h9v32h42V46h9z" fill="#F2F4F2"/><rect x="43" y="58" width="14" height="20" rx="2" fill="#175A4B"/></svg>`);
+  const man={name:t('appName'),short_name:t('appName'),start_url:location.href,display:'standalone',
+    background_color:'#F2F4F2',theme_color:'#175A4B',icons:[{src:icon,sizes:'any',type:'image/svg+xml'}]};
   const l=document.createElement('link');l.rel='manifest';
   l.href=URL.createObjectURL(new Blob([JSON.stringify(man)],{type:'application/json'}));
   document.head.appendChild(l);
