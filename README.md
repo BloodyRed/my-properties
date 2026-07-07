@@ -1,4 +1,6 @@
-# 🏠 Mes Propriétés
+# 🏠 Mes Propriétés / My Properties
+
+Application **bilingue (FR/EN)** — bouton de langue dans l'en-tête, choix mémorisé. En anglais, l'app s'appelle *My Properties*.
 
 Application web (PWA) de gestion de propriétés pour le Québec : taxes municipales et scolaires, dépenses d'entretien, entretien préventif, garanties et loyers — le tout dans **un seul fichier HTML**, sans serveur ni dépendance.
 
@@ -56,10 +58,10 @@ L'interface s'adapte automatiquement au **mode sombre** de votre appareil.
 - Les données sont enregistrées en **localStorage**, dans le navigateur de l'appareil. Rien ne quitte votre appareil par défaut.
 - **Export / Import JSON** (Réglages) : faites des copies de secours régulières.
 - **Synchro nuage optionnelle** via [JSONBin.io](https://jsonbin.io) pour retrouver vos données sur plusieurs appareils :
-  1. Créez un compte gratuit sur jsonbin.io
-  2. Créez un *bin* (contenu initial : `{}`)
-  3. Dans Réglages, collez votre **clé maître** (X-Master-Key) et l'**ID du bin**
-  4. « Envoyer vers le nuage » après vos modifications, « Récupérer du nuage » sur l'autre appareil
+  1. Créez un compte gratuit sur jsonbin.io et copiez votre **clé maître** (X-Master-Key)
+  2. Dans Réglages, collez la clé et cliquez « Envoyer vers le nuage » — le *bin* est **créé automatiquement** et son ID s'inscrit dans le champ
+  3. Sur un autre appareil, entrez la clé **et** cet ID de bin, puis « Récupérer du nuage »
+  4. Par la suite : « Envoyer » après vos modifications, « Récupérer » sur l'autre appareil
 
 > ⚠️ La synchro est manuelle et fonctionne en « dernier écrit gagne ». Envoyez avant de changer d'appareil.
 
@@ -84,7 +86,7 @@ Le format est rétrocompatible : les collections manquantes sont créées automa
 - Polices : Fraunces (titres) + Public Sans (texte) via Google Fonts, avec repli système hors-ligne
 - Manifeste PWA généré dynamiquement (installable sur l'écran d'accueil)
 - Mode sombre automatique (`prefers-color-scheme`)
-- Montants et dates au format `fr-CA` (CAD)
+- Interface bilingue FR/EN (bascule dans l'en-tête) — montants, dates et export CSV adaptés à la langue (`fr-CA` / `en-CA`)
 
 ## 🗺️ Idées pour la suite
 
