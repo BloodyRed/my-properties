@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1F5A4E">
+<meta name="app-version" content="1.7.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Mes Propriétés — Taxes & Entretien</title>
@@ -89,6 +90,8 @@ header.app h1 .tag{display:block;opacity:.72;font-size:12.5px;font-weight:500;ma
   border-radius:99px;padding:7px 14px;font-weight:700;font-size:14px;backdrop-filter:blur(3px);
 }
 .year-pick option{color:#1D2A2E}
+.hd-icon{display:flex;align-items:center;justify-content:center;padding:7px}
+.hd-icon svg{width:17px;height:17px}
 
 /* ---------- Nav ---------- */
 nav.tabs{
@@ -158,6 +161,8 @@ h2.sec:first-child{margin-top:4px}
 .stamp.late{border-color:var(--brick);color:var(--brick);background:color-mix(in srgb,var(--brick) 8%,transparent)}
 .stamp.due{border-color:var(--amber);color:var(--amber);background:color-mix(in srgb,var(--amber) 8%,transparent)}
 
+.fiche .stamp+.fiche-head .btn{margin-top:34px}
+
 /* ---------- Chips / badges ---------- */
 .chip{display:inline-block;font-size:11.5px;font-weight:700;padding:2.5px 10px;border-radius:99px;border:1px solid transparent}
 .chip.paid{background:var(--verdigris-tint);color:var(--verdigris-deep)}
@@ -176,6 +181,7 @@ h2.sec:first-child{margin-top:4px}
 .item .l{min-width:0;flex:1}
 .item .t{font-weight:600;font-size:14.5px}
 .item .d{font-size:12.5px;color:var(--ink-soft);margin-top:1px;overflow-wrap:break-word}
+.item .d a{color:inherit;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
 .item .amt{font-family:var(--display);font-weight:600;font-size:16px;white-space:nowrap;text-align:right}
 .item .amt .small{display:block;font-family:var(--body);font-weight:500}
 
@@ -197,8 +203,9 @@ h2.sec:first-child{margin-top:4px}
 .frow textarea{min-height:70px;resize:vertical}
 .frow input:focus,.frow select:focus,.frow textarea:focus{outline:none;border-color:var(--verdigris);box-shadow:0 0 0 3px color-mix(in srgb,var(--verdigris) 20%,transparent)}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.check{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:500}
-.check input{width:18px;height:18px;accent-color:var(--verdigris-deep)}
+.check{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500;line-height:1.35}
+.check input{width:18px;height:18px;accent-color:var(--verdigris-deep);flex:none;margin:0;align-self:center}
+.check span{flex:1;min-width:0}
 
 /* ---------- Buttons ---------- */
 .btn{
@@ -211,6 +218,8 @@ h2.sec:first-child{margin-top:4px}
 .btn.ghost{background:var(--card);border:1.5px solid var(--line);color:var(--ink);box-shadow:none}
 .btn.danger{background:var(--card);border:1.5px solid var(--brick);color:var(--brick);box-shadow:none}
 .btn.sm{padding:6px 12px;font-size:12.5px;border-radius:10px}
+.btn.icon{padding:8px 10px;display:inline-flex;align-items:center;justify-content:center}
+.btn.icon svg{width:19px;height:19px}
 .btn:active{transform:translateY(1px)}
 .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
 .toolbar select{border:1.5px solid var(--line);border-radius:11px;padding:8px 11px;background:var(--field);color:var(--ink);font-size:13.5px}
@@ -241,6 +250,37 @@ h2.sec:first-child{margin-top:4px}
 @media(min-width:560px){.months{grid-template-columns:repeat(12,1fr)}}
 .month{border:1.5px solid var(--line);border-radius:10px;padding:7px 2px;text-align:center;font-size:11px;font-weight:700;color:var(--ink-soft);background:var(--field);cursor:pointer;user-select:none;transition:all .15s}
 .month.on{background:linear-gradient(135deg,var(--verdigris),var(--verdigris-deep));border-color:transparent;color:#fff;box-shadow:0 2px 8px color-mix(in srgb,var(--verdigris-deep) 30%,transparent)}
+.subtabs{display:flex;gap:6px;margin-bottom:14px;background:color-mix(in srgb,var(--ink) 6%,transparent);padding:4px;border-radius:12px;width:max-content}
+.subtabs button{border:none;background:transparent;color:var(--ink-soft);font-weight:700;font-size:13px;padding:7px 14px;border-radius:9px;transition:all .15s;display:flex;align-items:center;gap:6px}
+.subtabs button svg{width:15px;height:15px;flex:none}
+.subtabs button.on{background:var(--card);color:var(--verdigris-deep);box-shadow:var(--shadow)}
+.plan-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;overflow-x:auto}
+.plan-grid{display:grid;grid-template-columns:minmax(72px,auto) repeat(12,minmax(22px,1fr));gap:4px;align-items:center;min-width:420px}
+.plan-grid .hd{font-size:10px;font-weight:700;color:var(--ink-soft);text-align:center;text-transform:uppercase}
+.plan-grid .rowname{font-size:12px;font-weight:600;padding-right:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.plan-grid .rowname .small{display:block;font-weight:500;color:var(--ink-soft);font-size:10.5px}
+.cellm{height:26px;border-radius:6px;border:1.5px solid var(--line);background:var(--field);cursor:pointer;transition:all .12s}
+.cellm.occ{background:var(--pc,var(--verdigris));border-color:transparent}
+.cellm.unav{border-color:transparent;background:repeating-linear-gradient(45deg,var(--brick) 0 5px,color-mix(in srgb,var(--brick) 70%,#fff) 5px 10px)}
+.cellm:active{transform:scale(.92)}
+.cellm.lock{cursor:not-allowed;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35)}
+.cellm.lock:active{transform:none}
+.plan-grid .sumfree{font-size:10.5px;font-weight:700;text-align:center;color:var(--ink-soft)}
+.ad-prev{white-space:pre-wrap;font-size:13px;line-height:1.45;background:var(--field);border:1.5px dashed var(--line);border-radius:10px;padding:11px 13px;margin-top:9px;overflow-wrap:break-word}
+.owner-row{display:grid;grid-template-columns:1fr 84px 36px;gap:8px;margin-bottom:7px;align-items:center}
+.owner-row input{border:1.5px solid var(--line);border-radius:9px;padding:8px 10px;background:var(--field);color:var(--ink);width:100%}
+.owner-row .btn{padding:7px 0}
+.share-t{width:100%;border-collapse:collapse;font-size:12.5px}
+.share-t th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink-soft);text-align:right;padding:3px 0 6px 8px}
+.share-t th:first-child{text-align:left;padding-left:0}
+.share-t td{padding:5px 0 5px 8px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.share-t td:first-child{text-align:left;font-weight:600;padding-left:0}
+.share-t tr.total td{border-top:1px solid var(--line);font-weight:700;padding-top:7px}
+.legend{display:flex;gap:16px;margin-top:10px;font-size:12.5px;color:var(--ink-soft);font-weight:600}
+.legend .dot{display:inline-block;width:13px;height:13px;border-radius:4px;vertical-align:-2px}
+.legend .dot.occ{background:var(--verdigris)}
+.legend .dot.free{background:var(--field);border:1.5px solid var(--line)}
+.legend .dot.unav{background:repeating-linear-gradient(45deg,var(--brick) 0 4px,color-mix(in srgb,var(--brick) 70%,#fff) 4px 8px)}
 .subhead{display:flex;justify-content:space-between;align-items:center;margin:24px 0 10px}
 .subhead h2{margin:0}
 
@@ -269,6 +309,7 @@ h2.sec:first-child{margin-top:4px}
   <div style="display:flex;gap:8px;align-items:center;position:relative;z-index:1">
     <button class="year-pick" id="langBtn" onclick="toggleLang()" aria-label="Language">EN</button>
     <select class="year-pick" id="yearPick" aria-label="Année"></select>
+    <button class="year-pick hd-icon" id="setBtn" onclick="showSettings()" data-i18n-title="navSet" aria-label="Réglages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg></button>
   </div>
 </header>
 
@@ -278,7 +319,7 @@ h2.sec:first-child{margin-top:4px}
   <button data-v="taxes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/></svg><span data-i18n="navTaxes">Taxes</span></button>
   <button data-v="dep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 4l6 6-10 10H4v-6zM12 6l6 6"/></svg><span data-i18n="navDep">Dépenses</span></button>
   <button data-v="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="8" cy="9" r="4"/><path d="M12 9h9v4h-3v3h-3v-3h-3z" transform="translate(-1 0)"/></svg><span data-i18n="navLoc">Location</span></button>
-  <button data-v="set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg><span data-i18n="navSet">Réglages</span></button>
+  <button data-v="parts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12A9 9 0 1 1 12 3v9z"/><path d="M21 8.5A9 9 0 0 0 15.5 3L14 9z"/></svg><span data-i18n="navParts">Parts</span></button>
 </nav>
 
 <main>
@@ -319,17 +360,14 @@ h2.sec:first-child{margin-top:4px}
   <div class="toolbar">
     <select id="depPropFilter" onchange="renderDeps()"></select>
     <select id="depCatFilter" onchange="renderDeps()"></select>
-    <button class="btn" style="margin-left:auto" onclick="openDep()" data-i18n="addDep">+ Dépense</button>
+    <button class="btn ghost icon" style="margin-left:auto" onclick="exportCSV()" data-i18n-title="csvTip" aria-label="CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11"/><path d="M8 10l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></button>
+    <button class="btn" onclick="openDep()" data-i18n="addDep">+ Dépense</button>
   </div>
   <div class="stat-row" id="depStats"></div>
   <div id="depList"></div>
   <div class="subhead"><h2 class="sec" data-i18n="secPlanned">Entretien planifié</h2><button class="btn ghost sm" onclick="openRec()" data-i18n="addRec">+ Tâche récurrente</button></div>
   <p class="small muted" style="margin:-4px 0 10px" data-i18n="plannedHint">Tâches préventives avec fréquence.</p>
   <div id="recList"></div>
-  <div class="card" style="margin-top:16px">
-    <p class="small muted" style="margin-bottom:9px" data-i18n="csvHint">Exporter les dépenses filtrées en CSV.</p>
-    <button class="btn ghost" onclick="exportCSV()" data-i18n="exportCsv">Exporter en CSV</button>
-  </div>
 </section>
 
 <!-- ============ LOCATION ============ -->
@@ -338,9 +376,41 @@ h2.sec:first-child{margin-top:4px}
     <select id="locPropFilter" onchange="renderLoc()"></select>
     <button class="btn" style="margin-left:auto" onclick="openUnit()" data-i18n="addUnit">+ Logement</button>
   </div>
-  <div class="stat-row" id="locStats"></div>
-  <p class="small muted" style="margin:-2px 0 12px" data-i18n="locHint">Cochez les mois où le loyer a été perçu.</p>
-  <div id="unitList"></div>
+  <div class="subtabs">
+    <button class="on" data-lt="units"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5.5" y="3" width="13" height="18" rx="1.5"/><circle cx="15" cy="12" r="1" fill="currentColor" stroke="none"/></svg><span data-i18n="subUnits">Logements</span></button>
+    <button data-lt="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg><span data-i18n="subPlan">Occupation</span></button>
+    <button data-lt="promo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg><span data-i18n="subPromo">Promotion</span></button>
+  </div>
+  <div id="loc-units">
+    <div class="stat-row" id="locStats"></div>
+    <p class="small muted" style="margin:-2px 0 12px" data-i18n="locHint">Cochez les mois où le loyer a été perçu.</p>
+    <div id="unitList"></div>
+  </div>
+  <div id="loc-plan" style="display:none">
+    <div class="stat-row" id="planStats"></div>
+    <p class="small muted" style="margin:-2px 0 12px" data-i18n="plannerHint">Touchez une case pour basculer occupé/libre.</p>
+    <div id="plannerBox"></div>
+    <div class="legend">
+      <span><i class="dot occ"></i> <span data-i18n="legOcc">Occupé</span></span>
+      <span><i class="dot unav"></i> <span data-i18n="legUnav">Indisponible</span></span>
+      <span><i class="dot free"></i> <span data-i18n="legFree">Libre</span></span>
+    </div>
+    <div class="subhead"><h2 class="sec" data-i18n="secLeases">Baux & locataires</h2><button class="btn ghost sm" onclick="openLease()" data-i18n="addLease">+ Bail</button></div>
+    <p class="small muted" style="margin:-4px 0 10px" data-i18n="leasesHint">Le locataire actuel et les anciens — l'historique est conservé quand le locataire change.</p>
+    <div id="leaseList"></div>
+  </div>
+  <div id="loc-promo" style="display:none">
+    <p class="small muted" style="margin:-2px 0 12px" data-i18n="promoHint">Préparez vos annonces pour Facebook Marketplace, Kijiji, etc.</p>
+    <div id="promoList"></div>
+  </div>
+</section>
+
+<!-- ============ PARTS ============ -->
+<section class="view" id="v-parts">
+  <h2 class="sec" data-i18n="secOwnerSummary">Sommaire par propriétaire</h2>
+  <div id="partsSummary"></div>
+  <h2 class="sec" data-i18n="secPerPropShares">Répartition par propriété</h2>
+  <div id="partsList"></div>
 </section>
 
 <!-- ============ RÉGLAGES ============ -->
@@ -372,6 +442,7 @@ h2.sec:first-child{margin-top:4px}
       <button class="btn danger" onclick="openWipe()" data-i18n="wipeOpen">Effacer toutes les données…</button>
     </div>
   </details>
+  <p class="small muted" style="text-align:center;margin-top:26px;opacity:.65"><span id="verLine"></span></p>
 </section>
 </main>
 
@@ -391,9 +462,13 @@ h2.sec:first-child{margin-top:4px}
   </div>
   <div class="fgrid">
     <div class="frow"><label data-i18n="lblPDate">Date d'achat</label><input type="date" id="pDate"></div>
-    <div class="frow"><label data-i18n="lblPPrice">Prix d'achat ($)</label><input type="number" id="pPrice" inputmode="decimal" step="0.01"></div>
+    <div class="frow"><label data-i18n="lblPPrice">Prix d'achat ($)</label><input type="text" class="money" id="pPrice" inputmode="decimal"></div>
   </div>
-  <div class="frow"><label data-i18n="lblPValue">Évaluation municipale / valeur ($)</label><input type="number" id="pValue" inputmode="decimal" step="0.01"></div>
+  <div class="frow"><label data-i18n="lblPValue">Évaluation municipale / valeur ($)</label><input type="text" class="money" id="pValue" inputmode="decimal"></div>
+  <div class="frow"><label data-i18n="lblOwners">Propriétaires & parts (%)</label>
+    <div id="pOwnersList"></div>
+    <button type="button" class="btn ghost sm" onclick="addOwnerRow()" data-i18n="addOwner">+ Propriétaire</button>
+  </div>
   <div class="frow"><label data-i18n="lblNotes">Notes</label><textarea id="pNotes" data-i18n-ph="phPNotes"></textarea></div>
   <div class="modal-actions">
     <button class="btn ghost" onclick="closeOv('ovProp')" data-i18n="btnCancel">Annuler</button>
@@ -410,7 +485,7 @@ h2.sec:first-child{margin-top:4px}
   </div>
   <div class="fgrid">
     <div class="frow"><label data-i18n="lblPType">Type</label><select id="tType"><option value="municipale" data-i18n="optMunicipal">Taxes municipales</option><option value="scolaire" data-i18n="optSchool">Taxes scolaires</option></select></div>
-    <div class="frow"><label data-i18n="lblTotal">Montant total ($) *</label><input type="number" id="tTotal" inputmode="decimal" step="0.01"></div>
+    <div class="frow"><label data-i18n="lblTotal">Montant total ($) *</label><input type="text" class="money" id="tTotal" inputmode="decimal"></div>
   </div>
   <div class="fgrid">
     <div class="frow"><label data-i18n="lblCount">Nb de versements</label><select id="tCount"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
@@ -429,12 +504,12 @@ h2.sec:first-child{margin-top:4px}
 <div class="overlay" id="ovDep"><div class="modal">
   <h3 id="depModalTitle">Dépense</h3>
   <div class="fgrid">
-    <div class="frow"><label data-i18n="lblProp">Propriété *</label><select id="dProp"></select></div>
+    <div class="frow"><label data-i18n="lblProp">Propriété *</label><select id="dProp" onchange="updUnitOptions()"></select></div>
     <div class="frow"><label data-i18n="lblDate">Date</label><input type="date" id="dDate"></div>
   </div>
   <div class="fgrid">
-    <div class="frow"><label data-i18n="lblAmount">Montant ($) *</label><input type="number" id="dAmt" inputmode="decimal" step="0.01"></div>
-    <div class="frow"><label data-i18n="lblCat">Catégorie</label><select id="dCat"></select></div>
+    <div class="frow"><label data-i18n="lblAmount">Montant ($) *</label><input type="text" class="money" id="dAmt" inputmode="decimal"></div>
+    <div class="frow"><label data-i18n="lblCat">Catégorie</label><select id="dCat" onchange="updUnavailBox()"></select></div>
   </div>
   <div class="frow"><label data-i18n="lblTitle">Titre *</label><input id="dTitle" data-i18n-ph="phDTitle"></div>
   <div class="fgrid">
@@ -443,6 +518,16 @@ h2.sec:first-child{margin-top:4px}
   </div>
   <div class="frow"><label data-i18n="lblDesc">Description / détails</label><textarea id="dDesc" data-i18n-ph="phDDesc"></textarea></div>
   <div class="frow"><label class="check" style="text-transform:none;letter-spacing:0"><input type="checkbox" id="dCapital"> <span data-i18n="capitalLbl">Dépense capitalisable</span></label></div>
+  <div id="dUnavailBox" style="display:none">
+    <div class="frow"><label class="check" style="text-transform:none;letter-spacing:0"><input type="checkbox" id="dUnavail" onchange="updUnavailFields()"> <span data-i18n="unavailLbl">Rend un logement indisponible</span></label></div>
+    <div id="dUnavailFields" style="display:none">
+      <div class="frow"><label data-i18n="lblUnitSel">Logement *</label><select id="dUnit"></select></div>
+      <div class="fgrid">
+        <div class="frow"><label data-i18n="lblUnavStart">Début d'indisponibilité</label><input type="date" id="dUnavStart"></div>
+        <div class="frow"><label data-i18n="lblUnavEnd">Fin (estimée)</label><input type="date" id="dUnavEnd"></div>
+      </div>
+    </div>
+  </div>
   <div class="modal-actions">
     <button class="btn ghost" onclick="closeOv('ovDep')" data-i18n="btnCancel">Annuler</button>
     <button class="btn danger sm" id="dDelete" style="flex:0 0 auto;display:none" onclick="deleteDep()" data-i18n="btnDelete">Supprimer</button>
@@ -475,19 +560,51 @@ h2.sec:first-child{margin-top:4px}
     <div class="frow"><label data-i18n="lblProp">Propriété *</label><select id="uProp"></select></div>
     <div class="frow"><label data-i18n="lblUnit">Logement *</label><input id="uName" data-i18n-ph="phUName"></div>
   </div>
-  <div class="fgrid">
-    <div class="frow"><label data-i18n="lblRent">Loyer mensuel ($)</label><input type="number" id="uRent" inputmode="decimal" step="0.01"></div>
-    <div class="frow"><label data-i18n="lblTenant">Locataire</label><input id="uTenant" data-i18n-ph="phOptional"></div>
-  </div>
-  <div class="fgrid">
-    <div class="frow"><label data-i18n="lblLeaseStart">Début du bail</label><input type="date" id="uStart"></div>
-    <div class="frow"><label data-i18n="lblLeaseEnd">Fin du bail</label><input type="date" id="uEnd"></div>
-  </div>
+  <div class="frow"><label data-i18n="lblRent">Loyer mensuel ($)</label><input type="text" class="money" id="uRent" inputmode="decimal"></div>
   <div class="frow"><label data-i18n="lblNotes">Notes</label><textarea id="uNotes" data-i18n-ph="phUNotes"></textarea></div>
   <div class="modal-actions">
     <button class="btn ghost" onclick="closeOv('ovUnit')" data-i18n="btnCancel">Annuler</button>
     <button class="btn danger sm" id="uDelete" style="flex:0 0 auto;display:none" onclick="deleteUnit()" data-i18n="btnDelete">Supprimer</button>
     <button class="btn" onclick="saveUnit()" data-i18n="btnSave">Enregistrer</button>
+  </div>
+</div></div>
+
+<div class="overlay" id="ovLease"><div class="modal">
+  <h3 id="leaseModalTitle">Bail</h3>
+  <div class="frow"><label data-i18n="lblUnitSel">Logement *</label><select id="lUnit"></select></div>
+  <div class="frow"><label data-i18n="lblTenantName">Nom complet du locataire *</label><input id="lName" data-i18n-ph="phTenantName"></div>
+  <div class="fgrid">
+    <div class="frow"><label data-i18n="lblPhone">Téléphone</label><input type="tel" id="lPhone" data-i18n-ph="phOptional"></div>
+    <div class="frow"><label data-i18n="lblEmail">Courriel</label><input type="email" id="lEmail" data-i18n-ph="phOptional"></div>
+  </div>
+  <div class="fgrid">
+    <div class="frow"><label data-i18n="lblLeaseStart">Début du bail</label><input type="date" id="lStart"></div>
+    <div class="frow"><label data-i18n="lblLeaseEnd">Fin du bail</label><input type="date" id="lEnd"></div>
+  </div>
+  <div class="fgrid">
+    <div class="frow"><label data-i18n="lblDeparted">Départ réel (si avant l'échéance)</label><input type="date" id="lDepart"></div>
+    <div class="frow"><label data-i18n="lblLeaseRent">Loyer du bail ($)</label><input type="text" class="money" id="lRent" inputmode="decimal"></div>
+  </div>
+  <div class="frow"><label data-i18n="lblNotes">Notes</label><textarea id="lNotes" data-i18n-ph="phLeaseNotes"></textarea></div>
+  <div class="modal-actions">
+    <button class="btn ghost" onclick="closeOv('ovLease')" data-i18n="btnCancel">Annuler</button>
+    <button class="btn danger sm" id="lDelete" style="flex:0 0 auto;display:none" onclick="deleteLease()" data-i18n="btnDelete">Supprimer</button>
+    <button class="btn" onclick="saveLease()" data-i18n="btnSave">Enregistrer</button>
+  </div>
+</div></div>
+
+<div class="overlay" id="ovAd"><div class="modal">
+  <h3 id="adModalTitle">Annonce</h3>
+  <div class="frow"><label data-i18n="lblAdTitle">Titre de l'annonce</label><input id="adTitle" data-i18n-ph="phAdTitle"></div>
+  <div class="fgrid">
+    <div class="frow"><label data-i18n="lblAdPrice">Prix affiché ($/mois)</label><input type="text" class="money" id="adPrice" inputmode="decimal"></div>
+    <div class="frow"><label data-i18n="lblAdAvail">Disponible le</label><input type="date" id="adAvail"></div>
+  </div>
+  <div class="frow"><label data-i18n="lblAdDesc">Description</label><textarea id="adDesc" style="min-height:110px" data-i18n-ph="phAdDesc"></textarea></div>
+  <div class="frow"><label data-i18n="lblAdIncl">Inclusions</label><input id="adIncl" data-i18n-ph="phAdIncl"></div>
+  <div class="modal-actions">
+    <button class="btn ghost" onclick="closeOv('ovAd')" data-i18n="btnCancel">Annuler</button>
+    <button class="btn" onclick="saveAd()" data-i18n="btnSave">Enregistrer</button>
   </div>
 </div></div>
 
@@ -506,6 +623,7 @@ h2.sec:first-child{margin-top:4px}
 
 <script>
 /* ================= État & stockage ================= */
+const APP_VERSION='1.7.0';
 const KEY='mesProprietesV1';
 const CATS=['Entretien','Réparation','Rénovation','Plomberie','Électricité','Toiture','Extérieur & terrain','Électroménagers','Frais & assurances','Autre'];
 const CAT_COLOR={'Entretien':'#2F8A74','Réparation':'#D97706','Rénovation':'#5B5FD6','Plomberie':'#0E87C4','Électricité':'#B7950B','Toiture':'#8B7355','Extérieur & terrain':'#65A30D','Électroménagers':'#C2569B','Frais & assurances':'#64748B','Autre':'#94A3B8'};
@@ -513,7 +631,7 @@ const CAT_EN={'Entretien':'Maintenance','Réparation':'Repair','Rénovation':'Re
 const TYPE_EN={'Maison':'House','Chalet':'Cottage','Terrain':'Land','Autre':'Other'};
 const PROP_PALETTE=['#2F8A74','#5B5FD6','#D97706','#D5533A','#0E87C4','#C2569B','#65A30D'];
 const propColor=id=>PROP_PALETTE[Math.max(0,DB.properties.findIndex(p=>p.id===id))%PROP_PALETTE.length];
-let DB={properties:[],taxes:[],expenses:[],recurring:[],units:[],settings:{}};
+let DB={properties:[],taxes:[],expenses:[],recurring:[],units:[],leases:[],settings:{}};
 let LANG='fr';
 let memOnly=false;
 
@@ -537,8 +655,7 @@ addRec:["+ Tâche récurrente","+ Recurring task"],
 addUnit:["+ Logement","+ Unit"],
 secPlanned:["Entretien planifié","Planned maintenance"],
 plannedHint:["Tâches préventives avec fréquence — l'app vous avertit quand c'est le temps.","Preventive tasks with a frequency — the app warns you when it's time."],
-csvHint:["Exporter les dépenses filtrées ci-dessus en CSV (compatible Excel) — pratique pour la comptabilité ou l'annexe fiscale.","Export the filtered expenses above as a CSV (Excel-friendly) — handy for bookkeeping or tax forms."],
-exportCsv:["Exporter en CSV","Export as CSV"],
+csvTip:["Exporter les dépenses filtrées en CSV (Excel)","Export filtered expenses as CSV (Excel)"],
 locHint:["Cochez les mois où le loyer a été perçu pour l'année sélectionnée en haut.","Tick the months where rent was received for the year selected at the top."],
 secBackup:["Sauvegarde","Backup"],
 backupHint:["Vos données sont enregistrées dans ce navigateur. Exportez régulièrement une copie de secours.","Your data is stored in this browser. Export a backup copy regularly."],
@@ -612,7 +729,50 @@ stFiltered:["Total filtré","Filtered total"],stCapital:["Dont capitalisable","O
 emptyDeps:["Aucune dépense ne correspond aux filtres pour {y}.","No expenses match the filters for {y}."],
 lastTime:["dernière fois :","last done:"],nextOn:["prochaine :","next:"],chipOk:["OK","OK"],
 emptyRec:["Aucune tâche planifiée. Idées : ramonage, nettoyage thermopompe, filtre échangeur d'air, calfeutrage, gouttières…","No planned tasks. Ideas: chimney sweep, heat pump cleaning, HRV filter, caulking, gutters…"],
-stUnits:["Logements","Units"],stPotential:["Potentiel annuel","Annual potential"],perMonth:["/ mois","/ month"],
+stUnits:["Logements","Units"],stPotential:["Potentiel annuel","Annual potential"],
+subUnits:["Logements","Units"],subPlan:["Occupation","Occupancy"],subPromo:["Promotion","Listings"],
+promoHint:["Préparez vos annonces prêtes à copier pour Facebook Marketplace, Kijiji, etc. Le texte se génère à partir du logement et de vos champs d'annonce.","Prepare copy-ready listings for Facebook Marketplace, Kijiji, etc. The text is generated from the unit and your listing fields."],
+lblAdTitle:["Titre de l'annonce","Listing title"],phAdTitle:["ex. Grand 4½ lumineux à Beloeil","e.g. Bright 4½ in Beloeil"],
+lblAdPrice:["Prix affiché ($/mois)","Listed price ($/month)"],lblAdAvail:["Disponible le","Available on"],
+lblAdDesc:["Description","Description"],phAdDesc:["pièces, étage, rénovations récentes, stationnement, proximité services…","rooms, floor, recent renos, parking, nearby services…"],
+lblAdIncl:["Inclusions","Included"],phAdIncl:["ex. chauffage, eau chaude, internet, stationnement","e.g. heating, hot water, internet, parking"],
+adModal:["Annonce —","Listing —"],adEdit:["Modifier l'annonce","Edit listing"],adCopy:["Copier l'annonce","Copy listing"],
+adCopied:["Annonce copiée dans le presse-papier!","Listing copied to clipboard!"],
+adAvailLine:["Disponible :","Available:"],adInclLine:["Inclusions :","Included:"],adMo:["mois","month"],
+adForRent:["à louer","for rent"],tAdSaved:["Annonce enregistrée","Listing saved"],
+secLeases:["Baux & locataires","Leases & tenants"],addLease:["+ Bail","+ Lease"],
+leasesHint:["Le locataire actuel et les anciens — quand le locataire change, ajoutez un nouveau bail : l'historique est conservé.","The current tenant and the past ones — when the tenant changes, add a new lease: history is preserved."],
+lblUnitSel:["Logement *","Unit *"],lblTenantName:["Nom complet du locataire *","Tenant full name *"],
+phTenantName:["ex. Marie Tremblay","e.g. Marie Tremblay"],
+lblPhone:["Téléphone","Phone"],lblEmail:["Courriel","Email"],lblLeaseRent:["Loyer du bail ($)","Lease rent ($)"],
+phLeaseNotes:["dépôt, animaux, particularités du bail…","deposit, pets, lease specifics…"],
+chipActive:["En cours","Active"],chipEndedOn:["Terminé le","Ended on"],chipStarts:["Débute le","Starts on"],
+lblDeparted:["Départ réel (si avant l'échéance)","Actual move-out (if before lease end)"],
+departedLbl:["🚪 Départ réel :","🚪 Moved out:"],beforeLeaseEnd:["avant la fin du bail","before lease end"],
+navParts:["Parts","Shares"],
+secOwnerSummary:["Sommaire par propriétaire","Summary by owner"],
+secPerPropShares:["Répartition par propriété","Breakdown by property"],
+lblOwners:["Propriétaires & parts (%)","Owners & shares (%)"],addOwner:["+ Propriétaire","+ Owner"],
+phOwnerName:["Nom","Name"],
+tShareSum:["Les parts doivent totaliser 100 %","Shares must total 100%"],
+colRents:["Loyers","Rents"],colTaxes:["Taxes","Taxes"],colDeps:["Dépenses","Expenses"],colNet:["Net","Net"],
+costsLbl:["Coûts","Costs"],
+emptyParts:["Aucune propriété n'a de propriétaires définis. Ouvrez une propriété (onglet Propriétés → Modifier) et ajoutez les propriétaires avec leurs parts en %.","No property has owners defined. Open a property (Properties tab → Edit) and add the owners with their shares in %."],
+mNewLease:["Nouveau bail","New lease"],mEditLease:["Modifier le bail","Edit lease"],
+tTenantReq:["Le nom du locataire est requis","Tenant name is required"],
+tLeaseSaved:["Bail enregistré","Lease saved"],cDelLease:["Supprimer ce bail de l'historique ?","Delete this lease from history?"],
+tLeaseDel:["Bail supprimé","Lease deleted"],tAddUnitFirst:["Ajoutez d'abord un logement","Add a unit first"],
+emptyLeases:["Aucun bail. Ajoutez le locataire actuel avec « + Bail » — et gardez les anciens pour l'historique.","No leases. Add the current tenant with \"+ Lease\" — and keep past ones for history."],
+plannerHint:["Touchez une case pour changer l'état : 1 clic = occupé, 2 = indisponible (rénovations…), 3 = libre. Les dates de bail remplissent le calendrier automatiquement.","Tap a cell to cycle: 1 tap = occupied, 2 = unavailable (renos…), 3 = vacant. Lease dates fill the calendar automatically."],
+legOcc:["Occupé","Occupied"],legFree:["Libre","Vacant"],legUnav:["Indisponible","Unavailable"],
+stUnavMonths:["Mois indisponibles","Unavailable months"],
+unavailLbl:["Rend un logement indisponible — le calendrier d'occupation sera marqué automatiquement","Makes a unit unavailable — the occupancy calendar will be marked automatically"],
+lblUnavStart:["Début d'indisponibilité","Unavailable from"],lblUnavEnd:["Fin (estimée)","Until (estimated)"],
+tUnavReq:["Choisissez le logement et la date de début de l'indisponibilité","Pick the unit and the unavailability start date"],
+tLockedLease:["Ce mois est défini par un bail — modifiez le bail pour le changer","This month is set by a lease — edit the lease to change it"],
+tLockedReno:["Ce mois est défini par une dépense de rénovation — modifiez la dépense","This month is set by a renovation expense — edit the expense"],
+srcLease:["bail","lease"],srcReno:["rénovation","renovation"],
+sumFree:["Libres","Free"],stOccRate:["Taux d'occupation","Occupancy rate"],stOccMonths:["Mois occupés","Occupied months"],stFreeMonths:["Mois libres","Vacant months"],perMonth:["/ mois","/ month"],
 leaseUntil:["Bail jusqu'au","Lease until"],leaseEnded:["Bail échu depuis le","Lease ended"],toRenew:["— à renouveler","— renew soon"],
 receivedIn:["Perçu en","Received in"],monthsOf:["mois","months"],
 emptyUnits:["Aucun logement. Ajoutez vos appartements avec le bouton ci-dessus — vous pourrez ensuite cocher les loyers perçus chaque mois.","No units. Add your apartments with the button above — you can then tick the rent received each month."],
@@ -667,6 +827,8 @@ function applyStatic(){
   document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
   document.querySelectorAll('[data-i18n-ph]').forEach(el=>el.placeholder=t(el.dataset.i18nPh));
   document.querySelectorAll('[data-i18n-html]').forEach(el=>el.innerHTML=t(el.dataset.i18nHtml));
+  document.querySelectorAll('[data-i18n-title]').forEach(el=>el.title=t(el.dataset.i18nTitle));
+  document.getElementById('verLine').textContent=t('appName')+' · v'+APP_VERSION;
 }
 function toggleLang(){
   LANG=LANG==='fr'?'en':'fr';
@@ -692,10 +854,61 @@ function save(){
   renderAll();
 }
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+function migrateDB(){
+  if(!DB.leases)DB.leases=[];
+  DB.units.forEach(u=>{
+    if(u.occupancy)Object.keys(u.occupancy).forEach(y=>{
+      u.occupancy[y]=u.occupancy[y].map(v=>v===true?1:v===false?0:+v||0);
+    });
+  });
+  DB.units.forEach(u=>{
+    if(u.tenant||u.leaseStart||u.leaseEnd){
+      DB.leases.push({id:uid(),unitId:u.id,name:u.tenant||'',phone:'',email:'',rent:'',start:u.leaseStart||'',end:u.leaseEnd||'',notes:''});
+      delete u.tenant;delete u.leaseStart;delete u.leaseEnd;
+    }
+  });
+}
 
 /* ================= Utilitaires ================= */
 const fmt$=n=>new Intl.NumberFormat(LANG==='fr'?'fr-CA':'en-CA',{style:'currency',currency:'CAD'}).format(+n||0);
 const fmtD=s=>{ if(!s)return '—'; const[a,m,j]=s.split('-'); return LANG==='fr'?`${j}/${m}/${a}`:`${MOIS_EN[+m-1]} ${+j}, ${a}`; };
+function parseMoney(str){
+  if(str==null)return '';
+  let v=String(str).replace(/[\s\u00A0\u202F$]/g,'');
+  if(!v)return '';
+  const hasC=v.includes(','),hasD=v.includes('.');
+  if(hasC&&hasD){ if(v.lastIndexOf(',')>v.lastIndexOf('.')) v=v.replace(/\./g,'').replace(/,/g,'.'); else v=v.replace(/,/g,''); }
+  else if(hasC){ v=v.replace(/,/g,'.'); const i=v.lastIndexOf('.'); if((v.match(/\./g)||[]).length>1) v=v.slice(0,i).replace(/\./g,'')+v.slice(i); }
+  const n=parseFloat(v);
+  return isNaN(n)?'':n;
+}
+function setMoney(el,val){const n=parseMoney(val);el.value=n===''?'':fmt$(n);}
+function moneyLive(el){
+  const isFr=LANG==='fr';
+  const v=el.value;
+  const caret=el.selectionStart??v.length;
+  const digitsBefore=(v.slice(0,caret).match(/\d/g)||[]).length;
+  const sepRe=isFr?/[.,]/:/[.]/;
+  const sepBefore=sepRe.test(v.slice(0,caret));
+  let clean=isFr?v.replace(/[^\d.,]/g,''):v.replace(/[^\d.]/g,'');
+  let intp,dec=null;
+  const si=clean.search(sepRe);
+  if(si>=0){intp=clean.slice(0,si).replace(/[.,]/g,'');dec=clean.slice(si+1).replace(/[.,]/g,'').slice(0,2);}
+  else intp=clean;
+  intp=intp.replace(/^0+(?=\d)/,'');
+  const group=isFr?' ':',';
+  const dSep=isFr?',':'.';
+  let out=intp.replace(/\B(?=(\d{3})+(?!\d))/g,group)+(si>=0?dSep+dec:'');
+  if(si>=0&&!intp)out='0'+out;
+  el.value=out;
+  let pos=0,cnt=0;
+  while(pos<out.length&&cnt<digitsBefore){if(/\d/.test(out[pos]))cnt++;pos++;}
+  if(sepBefore){const di=out.indexOf(dSep);if(di>=0&&pos<=di)pos=di+1;}
+  try{el.setSelectionRange(pos,pos);}catch(e){}
+}
+document.addEventListener('input',e=>{const el=e.target;if(el.classList&&el.classList.contains('money'))moneyLive(el);});
+document.addEventListener('focusin',e=>{const el=e.target;if(el.classList&&el.classList.contains('money'))moneyLive(el);});
+document.addEventListener('focusout',e=>{const el=e.target;if(el.classList&&el.classList.contains('money')){const n=parseMoney(el.value);el.value=n===''?'':fmt$(n);}});
 const esc=s=>(s??'').toString().replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const today=()=>new Date().toISOString().slice(0,10);
 const propName=id=>{const p=DB.properties.find(p=>p.id===id);return p?p.name:'?';};
@@ -767,18 +980,20 @@ function renderDash(){
   // Garanties actives + baux
   const soon90=(()=>{const d=new Date();d.setDate(d.getDate()+90);return d.toISOString().slice(0,10);})();
   const warr=DB.expenses.filter(e=>e.warrantyEnd&&e.warrantyEnd>=today()).sort((a,b)=>a.warrantyEnd.localeCompare(b.warrantyEnd));
-  const leases=DB.units.filter(u=>u.leaseEnd&&leaseState(u)!=='ok');
+  const leaseItems=DB.units.map(u=>({u,l:dispLease(u)})).filter(x=>x.l&&leaseEffEnd(x.l)).sort((a,b)=>leaseEffEnd(a.l).localeCompare(leaseEffEnd(b.l)));
   let wHtml='';
   wHtml+=warr.slice(0,5).map(e=>`
     <div class="item"><div class="l"><div class="t">${esc(e.title)}</div>
       <div class="d">${esc(propName(e.propertyId))}${e.vendor?' · '+esc(e.vendor):''}</div></div>
       <div style="text-align:right"><span class="chip ${e.warrantyEnd<=soon90?'due':'paid'}">${t('warrChip')} ${fmtD(e.warrantyEnd)}</span></div>
     </div>`).join('');
-  wHtml+=leases.map(u=>`
+  wHtml+=leaseItems.map(({u,l})=>{
+    const ls=leaseStateL(l);
+    return `
     <div class="item"><div class="l"><div class="t">${t('leasePrefix')} ${esc(u.name)}</div>
-      <div class="d">${esc(propName(u.propertyId))}${u.tenant?' · '+esc(u.tenant):''}</div></div>
-      <div style="text-align:right"><span class="chip ${leaseState(u)}">${leaseState(u)==='late'?t('endedOn'):t('endsOn')} ${fmtD(u.leaseEnd)}</span></div>
-    </div>`).join('');
+      <div class="d">${esc(propName(u.propertyId))}${l.name?' · '+esc(l.name):''}</div></div>
+      <div style="text-align:right"><span class="chip ${ls==='ok'?'paid':ls}">${ls==='late'?t('endedOn'):t('endsOn')} ${fmtD(leaseEffEnd(l))}${ls==='due'?' '+t('toRenew'):''}</span></div>
+    </div>`;}).join('');
   document.getElementById('dashWarr').innerHTML = wHtml || `<div class="empty">${t('emptyWarr')}</div>`;
 
   // Dépenses par catégorie
@@ -834,6 +1049,7 @@ function renderProps(){
         ${p.purchaseDate?`<tr><td>${t('purchase')}</td><td class="num">${fmtD(p.purchaseDate)}${p.purchasePrice?' · '+fmt$(p.purchasePrice):''}</td></tr>`:''}
         ${p.currentValue?`<tr><td>${t('assessed')}</td><td class="num">${fmt$(p.currentValue)}</td></tr>`:''}
       </table>
+      ${p.owners&&p.owners.length?`<p class="small muted" style="margin-top:7px">👥 ${p.owners.map(o=>esc(o.name)+' '+o.share+' %').join(' · ')}</p>`:''}
       ${p.notes?`<p class="small muted" style="margin-top:8px;white-space:pre-wrap">${esc(p.notes)}</p>`:''}
     </div>`).join('') : `<div class="empty">${t('emptyProps')}</div>`;
 }
@@ -903,21 +1119,45 @@ function renderDeps(){
 }
 
 /* ================= Modals : propriété ================= */
+function ownerRowHTML(o){
+  return `<div class="owner-row">
+    <input class="o-name" placeholder="${t('phOwnerName')}" value="${esc(o.name||'')}">
+    <input class="o-share" type="number" min="1" max="100" step="0.5" placeholder="%" value="${o.share??''}">
+    <button type="button" class="btn ghost sm" onclick="this.parentElement.remove()">✕</button>
+  </div>`;
+}
+function renderOwnerRows(list){
+  document.getElementById('pOwnersList').innerHTML=(list||[]).map(ownerRowHTML).join('');
+}
+function addOwnerRow(){
+  const rows=[...document.querySelectorAll('#pOwnersList .owner-row')];
+  const used=rows.reduce((sum,r)=>sum+(+r.querySelector('.o-share').value||0),0);
+  const remain=Math.max(0,100-used);
+  document.getElementById('pOwnersList').insertAdjacentHTML('beforeend',ownerRowHTML({name:'',share:remain||''}));
+}
+function readOwners(){
+  return [...document.querySelectorAll('#pOwnersList .owner-row')]
+    .map(r=>({name:r.querySelector('.o-name').value.trim(),share:+r.querySelector('.o-share').value||0}))
+    .filter(o=>o.name&&o.share>0);
+}
 let editPropId=null;
 function openProp(id){
   editPropId=id||null;
   const p=DB.properties.find(x=>x.id===id)||{};
   propModalTitle.textContent=id?t('mEditProp'):t('mNewProp');
   pName.value=p.name||'';pAddr.value=p.address||'';pType.value=p.type||'Maison';
-  pLot.value=p.lot||'';pDate.value=p.purchaseDate||'';pPrice.value=p.purchasePrice||'';
-  pValue.value=p.currentValue||'';pNotes.value=p.notes||'';
+  pLot.value=p.lot||'';pDate.value=p.purchaseDate||'';setMoney(pPrice,p.purchasePrice);
+  setMoney(pValue,p.currentValue);pNotes.value=p.notes||'';
+  renderOwnerRows(p.owners||[]);
   pDelete.style.display=id?'block':'none';
   openOv('ovProp');
 }
 function saveProp(){
   if(!pName.value.trim())return toast(t('tNameReq'));
+  const owners=readOwners();
+  if(owners.length&&Math.abs(owners.reduce((s,o)=>s+o.share,0)-100)>0.01)return toast(t('tShareSum'));
   const data={name:pName.value.trim(),address:pAddr.value.trim(),type:pType.value,lot:pLot.value.trim(),
-    purchaseDate:pDate.value,purchasePrice:pPrice.value,currentValue:pValue.value,notes:pNotes.value.trim()};
+    purchaseDate:pDate.value,purchasePrice:parseMoney(pPrice.value),currentValue:parseMoney(pValue.value),notes:pNotes.value.trim(),owners};
   if(editPropId)Object.assign(DB.properties.find(x=>x.id===editPropId),data);
   else DB.properties.push(Object.assign({id:uid()},data));
   closeOv('ovProp');save();toast(t('tPropSaved'));
@@ -927,6 +1167,8 @@ function deleteProp(){
   DB.taxes=DB.taxes.filter(x=>x.propertyId!==editPropId);
   DB.expenses=DB.expenses.filter(e=>e.propertyId!==editPropId);
   DB.recurring=DB.recurring.filter(r=>r.propertyId!==editPropId);
+  const delUids=DB.units.filter(u=>u.propertyId===editPropId).map(u=>u.id);
+  DB.leases=DB.leases.filter(l=>!delUids.includes(l.unitId));
   DB.units=DB.units.filter(u=>u.propertyId!==editPropId);
   DB.properties=DB.properties.filter(p=>p.id!==editPropId);
   closeOv('ovProp');save();toast(t('tPropDel'));
@@ -940,7 +1182,7 @@ function openTax(id){
   fillPropSelect('tProp',false);
   const tx=DB.taxes.find(x=>x.id===id);
   taxModalTitle.textContent=id?t('mEditTax'):t('mNewTax');
-  if(tx){tProp.value=tx.propertyId;tYear.value=tx.year;tType.value=tx.type;tTotal.value=tx.total;tNotes.value=tx.notes||'';
+  if(tx){tProp.value=tx.propertyId;tYear.value=tx.year;tType.value=tx.type;setMoney(tTotal,tx.total);tNotes.value=tx.notes||'';
     tCount.value=tx.installments.length||1;renderInstRows(tx.installments);}
   else{tYear.value=selYear();tType.value='municipale';tTotal.value='';tNotes.value='';tCount.value=4;tFirst.value='';renderInstRows([]);}
   tDelete.style.display=id?'block':'none';
@@ -951,11 +1193,11 @@ function renderInstRows(list){
     <div class="fgrid" style="align-items:end;margin-bottom:7px" data-inst>
       <div class="frow" style="margin:0"><label>${t('instN')} ${idx+1} ${t('instDue')}</label><input type="date" class="i-date" value="${i.dueDate||''}"></div>
       <div class="frow" style="margin:0"><label class="check" style="text-transform:none;letter-spacing:0;margin-bottom:4px"><input type="checkbox" class="i-paid" ${i.paid?'checked':''}>${t('instPaid')}</label>
-      <input type="number" step="0.01" inputmode="decimal" class="i-amt" value="${i.amount??''}" placeholder="${t('phAmt')}"></div>
+      <input type="text" inputmode="decimal" class="i-amt money" value="${(i.amount??'')===''?'':fmt$(i.amount)}" placeholder="${t('phAmt')}"></div>
     </div>`).join('');
 }
 function genInstallments(){
-  const n=+tCount.value,tot=+tTotal.value;
+  const n=+tCount.value,tot=parseMoney(tTotal.value)||0;
   if(!tot)return toast(t('tEnterTotal'));
   const base=Math.floor(tot/n*100)/100;
   const first=tFirst.value?new Date(tFirst.value+'T12:00:00'):new Date(selYear(),1,1);
@@ -968,15 +1210,15 @@ function genInstallments(){
   renderInstRows(list);
 }
 function saveTax(){
-  if(!+tTotal.value)return toast(t('tTotalReq'));
+  if(!parseMoney(tTotal.value))return toast(t('tTotalReq'));
   const installments=[...tInstallments.querySelectorAll('[data-inst]')].map(r=>({
     dueDate:r.querySelector('.i-date').value,
-    amount:+r.querySelector('.i-amt').value||0,
+    amount:parseMoney(r.querySelector('.i-amt').value)||0,
     paid:r.querySelector('.i-paid').checked,
     paidDate:r.querySelector('.i-paid').checked?today():null
   }));
   if(!installments.length)return toast(t('tGenFirst'));
-  const data={propertyId:tProp.value,year:+tYear.value,type:tType.value,total:+tTotal.value,notes:tNotes.value.trim(),installments};
+  const data={propertyId:tProp.value,year:+tYear.value,type:tType.value,total:parseMoney(tTotal.value),notes:tNotes.value.trim(),installments};
   if(editTaxId)Object.assign(DB.taxes.find(x=>x.id===editTaxId),data);
   else DB.taxes.push(Object.assign({id:uid()},data));
   closeOv('ovTax');buildYearPick();save();toast(t('tTaxSaved'));
@@ -988,6 +1230,25 @@ function deleteTax(){
 }
 
 /* ================= Modals : dépenses ================= */
+function updUnavailBox(){
+  const show=dCat.value==='Rénovation';
+  document.getElementById('dUnavailBox').style.display=show?'':'none';
+  if(!show)dUnavail.checked=false;
+  updUnavailFields();
+}
+function updUnavailFields(){
+  document.getElementById('dUnavailFields').style.display=dUnavail.checked?'':'none';
+  if(dUnavail.checked){
+    updUnitOptions();
+    if(!dUnavStart.value)dUnavStart.value=dDate.value||today();
+  }
+}
+function updUnitOptions(){
+  const cur=dUnit.value;
+  dUnit.innerHTML=DB.units.filter(u=>u.propertyId===dProp.value)
+    .map(u=>`<option value="${u.id}">${esc(u.name)}</option>`).join('');
+  if([...dUnit.options].some(o=>o.value===cur))dUnit.value=cur;
+}
 let editDepId=null;
 function openDep(id){
   if(!DB.properties.length)return toast(t('tAddPropFirst'));
@@ -998,16 +1259,26 @@ function openDep(id){
   if([...dCat.options].some(o=>o.value===curD)) dCat.value=curD;
   const e=DB.expenses.find(x=>x.id===id);
   depModalTitle.textContent=id?t('mEditDep'):t('mNewDep');
-  if(e){dProp.value=e.propertyId;dDate.value=e.date;dAmt.value=e.amount;dCat.value=e.category;
-    dTitle.value=e.title;dVendor.value=e.vendor||'';dWarr.value=e.warrantyEnd||'';dDesc.value=e.description||'';dCapital.checked=!!e.capital;}
-  else{dDate.value=today();dAmt.value='';dCat.value='Entretien';dTitle.value='';dVendor.value='';dWarr.value='';dDesc.value='';dCapital.checked=false;}
+  if(e){dProp.value=e.propertyId;dDate.value=e.date;setMoney(dAmt,e.amount);dCat.value=e.category;
+    dTitle.value=e.title;dVendor.value=e.vendor||'';dWarr.value=e.warrantyEnd||'';dDesc.value=e.description||'';dCapital.checked=!!e.capital;
+    dUnavail.checked=!!e.unavail;
+    updUnavailBox();
+    if(e.unavail){updUnitOptions();dUnit.value=e.unavail.unitId||'';dUnavStart.value=e.unavail.start||'';dUnavEnd.value=e.unavail.end||'';}
+    else{dUnavStart.value='';dUnavEnd.value='';}}
+  else{dDate.value=today();dAmt.value='';dCat.value='Entretien';dTitle.value='';dVendor.value='';dWarr.value='';dDesc.value='';dCapital.checked=false;
+    dUnavail.checked=false;dUnavStart.value='';dUnavEnd.value='';updUnavailBox();}
   dDelete.style.display=id?'block':'none';
   openOv('ovDep');
 }
 function saveDep(){
-  if(!dTitle.value.trim()||!+dAmt.value)return toast(t('tTitleAmtReq'));
-  const data={propertyId:dProp.value,date:dDate.value,amount:+dAmt.value,category:dCat.value,
-    title:dTitle.value.trim(),vendor:dVendor.value.trim(),warrantyEnd:dWarr.value,description:dDesc.value.trim(),capital:dCapital.checked};
+  if(!dTitle.value.trim()||!parseMoney(dAmt.value))return toast(t('tTitleAmtReq'));
+  let unavail=null;
+  if(dCat.value==='Rénovation'&&dUnavail.checked){
+    if(!dUnit.value||!dUnavStart.value)return toast(t('tUnavReq'));
+    unavail={unitId:dUnit.value,start:dUnavStart.value,end:dUnavEnd.value};
+  }
+  const data={propertyId:dProp.value,date:dDate.value,amount:parseMoney(dAmt.value),category:dCat.value,
+    title:dTitle.value.trim(),vendor:dVendor.value.trim(),warrantyEnd:dWarr.value,description:dDesc.value.trim(),capital:dCapital.checked,unavail};
   if(editDepId)Object.assign(DB.expenses.find(x=>x.id===editDepId),data);
   else DB.expenses.push(Object.assign({id:uid()},data));
   closeOv('ovDep');buildYearPick();save();toast(t('tDepSaved'));
@@ -1077,13 +1348,7 @@ function deleteRec(){
 /* ================= Location (logements & loyers) ================= */
 function unitPay(u,y){ if(!u.payments)u.payments={}; if(!u.payments[y])u.payments[y]=Array(12).fill(false); return u.payments[y]; }
 function rentReceived(u,y){ return unitPay(u,y).filter(Boolean).length*(+u.monthlyRent||0); }
-function leaseState(u){
-  if(!u.leaseEnd)return null;
-  const td=today();
-  if(u.leaseEnd<td)return 'late';
-  const soon=new Date();soon.setDate(soon.getDate()+90);
-  return u.leaseEnd<=soon.toISOString().slice(0,10)?'due':'ok';
-}
+
 function renderLoc(){
   fillPropSelect('locPropFilter',true);
   const Y=selYear(),f=document.getElementById('locPropFilter').value;
@@ -1096,18 +1361,258 @@ function renderLoc(){
     <div class="stat"><div class="lbl">${t('stRents')} ${Y}</div><div class="val num">${fmt$(received)}</div></div>
     <div class="stat"><div class="lbl">${t('stPotential')}</div><div class="val num">${fmt$(expected)}</div></div>`;
   document.getElementById('unitList').innerHTML = list.length? list.map(u=>{
-    const pays=unitPay(u,Y),ls=leaseState(u);
+    const pays=unitPay(u,Y),cl=currentLease(u);
     return `<div class="card fiche" style="--pc:${propColor(u.propertyId)}">
       <div class="fiche-head"><div>
         <h3>${esc(u.name)} <span class="small muted" style="font-family:var(--body);font-weight:500">· ${esc(propName(u.propertyId))}</span></h3>
-        <div class="matricule">${u.tenant?esc(u.tenant)+' · ':''}${fmt$(u.monthlyRent)} ${t('perMonth')}</div>
-        ${u.leaseEnd?`<div style="margin-top:4px"><span class="chip ${ls==='ok'?'cat':ls}">${ls==='late'?t('leaseEnded'):t('leaseUntil')} ${fmtD(u.leaseEnd)}${ls==='due'?' '+t('toRenew'):''}</span></div>`:''}
+        <div class="matricule">${cl&&cl.name?esc(cl.name)+' · ':''}${fmt$(u.monthlyRent)} ${t('perMonth')}</div>
       </div>
       <button class="btn ghost sm" onclick="openUnit('${u.id}')">${t('editBtn')}</button></div>
       <div class="months">${LMOIS().map((m,i)=>`<div class="month ${pays[i]?'on':''}" role="button" tabindex="0" onclick="toggleRent('${u.id}',${i})" onkeydown="if(event.key==='Enter')toggleRent('${u.id}',${i})">${m}</div>`).join('')}</div>
       <table style="margin-top:9px"><tr class="total"><td>${t('receivedIn')} ${Y} (${pays.filter(Boolean).length}/12 ${t('monthsOf')})</td><td class="num">${fmt$(rentReceived(u,Y))}</td></tr></table>
       ${u.notes?`<p class="small muted" style="margin-top:6px;white-space:pre-wrap">${esc(u.notes)}</p>`:''}
     </div>`;}).join('') : `<div class="empty">${t('emptyUnits')}</div>`;
+  renderPlanner();
+  renderLeases();
+  renderPromo();
+}
+function showSettings(){
+  document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id==='v-set'));
+}
+let locTab='units';
+const LOC_TABS={units:'loc-units',plan:'loc-plan',promo:'loc-promo'};
+document.querySelectorAll('.subtabs button').forEach(b=>b.addEventListener('click',()=>{
+  locTab=b.dataset.lt;
+  document.querySelectorAll('.subtabs button').forEach(x=>x.classList.toggle('on',x===b));
+  Object.entries(LOC_TABS).forEach(([k,id])=>document.getElementById(id).style.display=k===locTab?'':'none');
+}));
+const unitLeases=u=>DB.leases.filter(l=>l.unitId===u.id);
+const leaseEffEnd=l=>l.departed||l.end||'';
+function currentLease(u){
+  const td=today();
+  const cur=unitLeases(u).filter(l=>{const e=leaseEffEnd(l);return (!l.start||l.start<=td)&&(!e||e>=td);});
+  cur.sort((a,b)=>(b.start||'').localeCompare(a.start||''));
+  return cur[0]||null;
+}
+function dispLease(u){
+  const cl=currentLease(u);if(cl)return cl;
+  const all=unitLeases(u).slice().sort((a,b)=>(leaseEffEnd(b)||'9999').localeCompare(leaseEffEnd(a)||'9999'));
+  return all[0]||null;
+}
+function leaseStateL(l){
+  const e=l?leaseEffEnd(l):'';
+  if(!e)return 'ok';
+  const td=today();
+  if(e<td)return 'late';
+  const soon=new Date();soon.setDate(soon.getDate()+90);
+  return e<=soon.toISOString().slice(0,10)?'due':'ok';
+}
+function leaseCoversMonth(u,y,m){
+  const mm=String(m+1).padStart(2,'0');
+  return unitLeases(u).some(l=>{
+    if(!l.start&&!l.end)return false;
+    const start=l.start||'0000-01-01', end=leaseEffEnd(l)||'9999-12-31';
+    return start<=`${y}-${mm}-28` && end>=`${y}-${mm}-01`;
+  });
+}
+function renoBlocksMonth(u,y,m){
+  const mm=String(m+1).padStart(2,'0');
+  return DB.expenses.some(e=>{
+    const uv=e.unavail;
+    if(!uv||uv.unitId!==u.id||!uv.start)return false;
+    const end=uv.end||'9999-12-31';
+    return uv.start<=`${y}-${mm}-28` && end>=`${y}-${mm}-01`;
+  });
+}
+function occCell(u,y,m){
+  if(renoBlocksMonth(u,y,m))return {v:2,src:'reno'};
+  if(leaseCoversMonth(u,y,m))return {v:1,src:'lease'};
+  const raw=u.occupancy&&u.occupancy[y]?u.occupancy[y][m]:0;
+  return {v:raw===true?1:raw===false?0:+raw||0,src:'manual'};
+}
+function occArr(u,y){
+  return Array.from({length:12},(_,m)=>occCell(u,y,m).v);
+}
+function toggleOcc(unitId,m){
+  const u=DB.units.find(x=>x.id===unitId);if(!u)return;
+  const y=selYear();
+  const c=occCell(u,y,m);
+  if(c.src==='lease')return toast(t('tLockedLease'));
+  if(c.src==='reno')return toast(t('tLockedReno'));
+  if(!u.occupancy)u.occupancy={};
+  if(!u.occupancy[y])u.occupancy[y]=Array(12).fill(0);
+  u.occupancy[y][m]=((+u.occupancy[y][m]||0)+1)%3;   // libre → occupé → indisponible → libre
+  save();
+}
+const OCC_CLASS=['','occ','unav'];
+const occLbl=v=>v===1?t('legOcc'):v===2?t('legUnav'):t('legFree');
+function renderPlanner(){
+  const Y=selYear(),f=document.getElementById('locPropFilter').value;
+  const list=DB.units.filter(u=>!f||u.propertyId===f)
+    .sort((a,b)=>propName(a.propertyId).localeCompare(propName(b.propertyId))||a.name.localeCompare(b.name));
+  if(!list.length){
+    document.getElementById('planStats').innerHTML='';
+    document.getElementById('plannerBox').innerHTML=`<div class="empty">${t('emptyUnits')}</div>`;
+    return;
+  }
+  const arrs=list.map(u=>occArr(u,Y));
+  const flat=arrs.flat();
+  const occTot=flat.filter(v=>v===1).length;
+  const unavTot=flat.filter(v=>v===2).length;
+  const freeTot=flat.filter(v=>v===0).length;
+  const denom=Math.max(1,flat.length-unavTot);
+  document.getElementById('planStats').innerHTML=`
+    <div class="stat"><div class="lbl">${t('stOccRate')} ${Y}</div><div class="val num">${Math.round(occTot/denom*100)}%</div></div>
+    <div class="stat"><div class="lbl">${t('stOccMonths')}</div><div class="val num">${occTot}</div></div>
+    <div class="stat"><div class="lbl">${t('stFreeMonths')}</div><div class="val num">${freeTot}</div></div>
+    ${unavTot?`<div class="stat"><div class="lbl">${t('stUnavMonths')}</div><div class="val num">${unavTot}</div></div>`:''}`;
+  let g=`<div class="plan-card"><div class="plan-grid">`;
+  g+=`<div></div>`+LMOIS().map(m=>`<div class="hd">${m[0]}${m[1]||''}</div>`).join('');
+  list.forEach((u,ui)=>{
+    g+=`<div class="rowname">${esc(u.name)}<span class="small">${esc(propName(u.propertyId))}</span></div>`;
+    g+=arrs[ui].map((v,m)=>{
+      const src=occCell(u,Y,m).src;
+      const lock=src!=='manual';
+      const srcTxt=src==='lease'?` (${t('srcLease')})`:src==='reno'?` (${t('srcReno')})`:'';
+      return `<div class="cellm ${OCC_CLASS[v]} ${lock?'lock':''}" style="--pc:${propColor(u.propertyId)}" role="button" tabindex="0" title="${LMOIS()[m]} ${Y} — ${occLbl(v)}${srcTxt}" onclick="toggleOcc('${u.id}',${m})" onkeydown="if(event.key==='Enter')toggleOcc('${u.id}',${m})"></div>`;}).join('');
+  });
+  g+=`<div class="rowname" style="font-weight:700">${t('sumFree')}</div>`;
+  for(let m=0;m<12;m++){
+    const free=arrs.filter(a=>a[m]===0).length;
+    g+=`<div class="sumfree" style="color:${free?'var(--amber)':'var(--verdigris-deep)'}">${free}</div>`;
+  }
+  g+=`</div></div>`;
+  document.getElementById('plannerBox').innerHTML=g;
+}
+function fillUnitSelect(sel){
+  const el=document.getElementById(sel);const cur=el.value;
+  el.innerHTML=DB.units.map(u=>`<option value="${u.id}">${esc(u.name)} — ${esc(propName(u.propertyId))}</option>`).join('');
+  if([...el.options].some(o=>o.value===cur))el.value=cur;
+}
+function renderLeases(){
+  const f=document.getElementById('locPropFilter').value;
+  const items=DB.leases.map(l=>({l,u:DB.units.find(u=>u.id===l.unitId)}))
+    .filter(x=>x.u&&(!f||x.u.propertyId===f));
+  const td=today();
+  const score=({l})=>{
+    const e=leaseEffEnd(l);
+    const active=(!l.start||l.start<=td)&&(!e||e>=td);
+    if(active)return 0;
+    if(l.start&&l.start>td)return 1;
+    return 2;
+  };
+  items.sort((a,b)=>score(a)-score(b)||(b.l.start||'').localeCompare(a.l.start||''));
+  document.getElementById('leaseList').innerHTML = items.length? items.map(({l,u})=>{
+    const eff=leaseEffEnd(l);
+    const active=(!l.start||l.start<=td)&&(!eff||eff>=td);
+    const future=l.start&&l.start>td;
+    const ls=leaseStateL(l);
+    let chip;
+    if(future)chip=`<span class="chip due">${t('chipStarts')} ${fmtD(l.start)}</span>`;
+    else if(active)chip=ls==='due'
+      ?`<span class="chip due">${t('endsOn')} ${fmtD(eff)} ${t('toRenew')}</span>`
+      :`<span class="chip paid">${t('chipActive')}${eff?' · '+t('endsOn')+' '+fmtD(eff):''}</span>`;
+    else chip=`<span class="chip cat">${t('chipEndedOn')} ${fmtD(eff)}</span>`;
+    return `<div class="item" style="${active?'':'opacity:.75'}">
+      <div class="l"><div class="t">${esc(l.name)||'—'}</div>
+        <div class="d">${esc(u.name)} · ${esc(propName(u.propertyId))}</div>
+        ${l.phone?`<div class="d">📞 <a href="tel:${esc(l.phone)}">${esc(l.phone)}</a></div>`:''}
+        ${l.email?`<div class="d">✉️ <a href="mailto:${esc(l.email)}">${esc(l.email)}</a></div>`:''}
+        <div class="d num">${fmtD(l.start)} → ${l.end?fmtD(l.end):'…'}${l.rent!==''&&l.rent!=null?` · ${fmt$(l.rent)} ${t('perMonth')}`:''}</div>
+        ${l.departed?`<div class="d">${t('departedLbl')} ${fmtD(l.departed)}${l.end&&l.departed<l.end?` <span class="chip due" style="font-size:10.5px">${t('beforeLeaseEnd')}</span>`:''}</div>`:''}
+        ${l.notes?`<div class="d">${esc(l.notes)}</div>`:''}
+        <div style="margin-top:5px">${chip}</div>
+      </div>
+      <div><button class="btn ghost sm" onclick="openLease('${l.id}')">${t('editBtn')}</button></div>
+    </div>`;}).join('') : `<div class="empty">${t('emptyLeases')}</div>`;
+}
+let editLeaseId=null;
+function openLease(id){
+  if(!DB.units.length)return toast(t('tAddUnitFirst'));
+  editLeaseId=id||null;
+  fillUnitSelect('lUnit');
+  const l=DB.leases.find(x=>x.id===id);
+  leaseModalTitle.textContent=id?t('mEditLease'):t('mNewLease');
+  if(l){lUnit.value=l.unitId;lName.value=l.name||'';lPhone.value=l.phone||'';lEmail.value=l.email||'';
+    setMoney(lRent,l.rent);lStart.value=l.start||'';lEnd.value=l.end||'';lDepart.value=l.departed||'';lNotes.value=l.notes||'';}
+  else{lName.value='';lPhone.value='';lEmail.value='';lRent.value='';lStart.value='';lEnd.value='';lDepart.value='';lNotes.value='';}
+  lDelete.style.display=id?'block':'none';
+  openOv('ovLease');
+}
+function saveLease(){
+  if(!lName.value.trim())return toast(t('tTenantReq'));
+  const data={unitId:lUnit.value,name:lName.value.trim(),phone:lPhone.value.trim(),email:lEmail.value.trim(),
+    rent:parseMoney(lRent.value),start:lStart.value,end:lEnd.value,departed:lDepart.value,notes:lNotes.value.trim()};
+  if(editLeaseId)Object.assign(DB.leases.find(x=>x.id===editLeaseId),data);
+  else DB.leases.push(Object.assign({id:uid()},data));
+  closeOv('ovLease');save();toast(t('tLeaseSaved'));
+}
+function deleteLease(){
+  if(!confirm(t('cDelLease')))return;
+  DB.leases=DB.leases.filter(l=>l.id!==editLeaseId);
+  closeOv('ovLease');save();toast(t('tLeaseDel'));
+}
+function buildAdText(u){
+  const p=DB.properties.find(x=>x.id===u.propertyId)||{};
+  const ad=u.ad||{};
+  const price=ad.price!==''&&ad.price!=null?ad.price:(u.monthlyRent||'');
+  const lines=[];
+  lines.push('🏠 '+(ad.title||`${u.name} ${t('adForRent')} — ${typeLbl(p.type)||''}`.trim()));
+  if(p.address)lines.push('📍 '+p.address);
+  if(price!=='')lines.push('💰 '+fmt$(price)+' / '+t('adMo'));
+  if(ad.avail)lines.push('📅 '+t('adAvailLine')+' '+fmtD(ad.avail));
+  if(ad.desc)lines.push('',ad.desc);
+  if(ad.incl)lines.push('','✨ '+t('adInclLine')+' '+ad.incl);
+  return lines.join('\n');
+}
+function renderPromo(){
+  const f=document.getElementById('locPropFilter').value;
+  const list=DB.units.filter(u=>!f||u.propertyId===f)
+    .sort((a,b)=>propName(a.propertyId).localeCompare(propName(b.propertyId))||a.name.localeCompare(b.name));
+  document.getElementById('promoList').innerHTML = list.length? list.map(u=>`
+    <div class="card fiche" style="--pc:${propColor(u.propertyId)}">
+      <div class="fiche-head"><div>
+        <h3>${esc(u.name)} <span class="small muted" style="font-family:var(--body);font-weight:500">· ${esc(propName(u.propertyId))}</span></h3>
+      </div>
+      <div style="display:flex;gap:7px">
+        <button class="btn ghost sm" onclick="openAd('${u.id}')">${t('adEdit')}</button>
+        <button class="btn sm" onclick="copyAd('${u.id}')">${t('adCopy')}</button>
+      </div></div>
+      <div class="ad-prev">${esc(buildAdText(u))}</div>
+    </div>`).join('') : `<div class="empty">${t('emptyUnits')}</div>`;
+}
+let editAdId=null;
+function openAd(id){
+  editAdId=id;
+  const u=DB.units.find(x=>x.id===id);if(!u)return;
+  const ad=u.ad||{};
+  adModalTitle.textContent=t('adModal')+' '+u.name;
+  adTitle.value=ad.title||'';
+  setMoney(adPrice, ad.price!==''&&ad.price!=null?ad.price:(u.monthlyRent||''));
+  adAvail.value=ad.avail||'';adDesc.value=ad.desc||'';adIncl.value=ad.incl||'';
+  openOv('ovAd');
+}
+function saveAd(){
+  const u=DB.units.find(x=>x.id===editAdId);if(!u)return;
+  u.ad={title:adTitle.value.trim(),price:parseMoney(adPrice.value),avail:adAvail.value,
+    desc:adDesc.value.trim(),incl:adIncl.value.trim()};
+  closeOv('ovAd');save();toast(t('tAdSaved'));
+}
+function copyAd(id){
+  const u=DB.units.find(x=>x.id===id);if(!u)return;
+  const txt=buildAdText(u);
+  const done=()=>toast(t('adCopied'));
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done).catch(()=>fallbackCopy(txt,done));
+  }else fallbackCopy(txt,done);
+}
+function fallbackCopy(txt,done){
+  const ta=document.createElement('textarea');
+  ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');done();}catch(e){}
+  document.body.removeChild(ta);
 }
 function toggleRent(unitId,m){
   const u=DB.units.find(x=>x.id===unitId);if(!u)return;
@@ -1120,22 +1625,21 @@ function openUnit(id){
   fillPropSelect('uProp',false);
   const u=DB.units.find(x=>x.id===id);
   unitModalTitle.textContent=id?t('mEditUnit'):t('mNewUnit');
-  if(u){uProp.value=u.propertyId;uName.value=u.name;uRent.value=u.monthlyRent||'';uTenant.value=u.tenant||'';
-    uStart.value=u.leaseStart||'';uEnd.value=u.leaseEnd||'';uNotes.value=u.notes||'';}
-  else{uName.value='';uRent.value='';uTenant.value='';uStart.value='';uEnd.value='';uNotes.value='';}
+  if(u){uProp.value=u.propertyId;uName.value=u.name;setMoney(uRent,u.monthlyRent);uNotes.value=u.notes||'';}
+  else{uName.value='';uRent.value='';uNotes.value='';}
   uDelete.style.display=id?'block':'none';
   openOv('ovUnit');
 }
 function saveUnit(){
   if(!uName.value.trim())return toast(t('tUnitReq'));
-  const data={propertyId:uProp.value,name:uName.value.trim(),monthlyRent:uRent.value,tenant:uTenant.value.trim(),
-    leaseStart:uStart.value,leaseEnd:uEnd.value,notes:uNotes.value.trim()};
+  const data={propertyId:uProp.value,name:uName.value.trim(),monthlyRent:parseMoney(uRent.value),notes:uNotes.value.trim()};
   if(editUnitId)Object.assign(DB.units.find(x=>x.id===editUnitId),data);
   else DB.units.push(Object.assign({id:uid(),payments:{}},data));
   closeOv('ovUnit');save();toast(t('tUnitSaved'));
 }
 function deleteUnit(){
   if(!confirm(t('cDelUnit')))return;
+  DB.leases=DB.leases.filter(l=>l.unitId!==editUnitId);
   DB.units=DB.units.filter(u=>u.id!==editUnitId);
   closeOv('ovUnit');save();toast(t('tUnitDel'));
 }
@@ -1168,7 +1672,7 @@ document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{
 
 /* ================= Export / Import / Effacement ================= */
 function exportJSON(){
-  const blob=new Blob([JSON.stringify(DB,null,2)],{type:'application/json'});
+  const blob=new Blob([JSON.stringify(Object.assign({appVersion:APP_VERSION},DB),null,2)],{type:'application/json'});
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
   a.download=`mes-proprietes-${today()}.json`;a.click();
@@ -1180,7 +1684,9 @@ function importJSON(inp){
   r.onload=()=>{try{
       const d=JSON.parse(r.result);
       if(!d.properties)throw 0;
-      DB=Object.assign({properties:[],taxes:[],expenses:[],recurring:[],units:[],settings:{}},d);
+      DB=Object.assign({properties:[],taxes:[],expenses:[],recurring:[],units:[],leases:[],settings:{}},d);
+      delete DB.appVersion;
+      migrateDB();
       LANG=DB.settings.lang||LANG;applyStatic();
       buildYearPick();save();toast(t('tImported'));
     }catch(e){toast(t('tInvalid'));}};
@@ -1197,7 +1703,7 @@ function wipeCheck(){
 }
 function wipeAll(){
   if(wipeInput.value.trim().toUpperCase()!==t('wipeWord'))return;
-  DB={properties:[],taxes:[],expenses:[],recurring:[],units:[],settings:{lang:LANG}};
+  DB={properties:[],taxes:[],expenses:[],recurring:[],units:[],leases:[],settings:{lang:LANG}};
   closeOv('ovWipe');buildYearPick();save();toast(t('tWiped'));
 }
 
@@ -1242,15 +1748,72 @@ async function cloudLoad(){
     if(!r.ok)throw 0;
     const d=(await r.json()).record;
     const cfg={binKey:DB.settings.binKey,binId:DB.settings.binId,lang:LANG};
-    DB=Object.assign({properties:[],taxes:[],expenses:[],recurring:[],units:[],settings:{}},d);
+    DB=Object.assign({properties:[],taxes:[],expenses:[],recurring:[],units:[],leases:[],settings:{}},d);
     DB.settings=Object.assign(DB.settings,cfg);
+    migrateDB();
     buildYearPick();save();syncStatus.textContent=t('sGot');
   }catch(e){syncStatus.textContent=t('sGetFail');}
 }
 
+/* ================= Rendu : parts des propriétaires ================= */
+function propYearFigures(p,Y){
+  const taxes=DB.taxes.filter(tx=>tx.propertyId===p.id&&+tx.year===Y).reduce((s,tx)=>s+(+tx.total||0),0);
+  const deps=DB.expenses.filter(e=>e.propertyId===p.id&&e.date&&+e.date.slice(0,4)===Y).reduce((s,e)=>s+(+e.amount||0),0);
+  const rents=DB.units.filter(u=>u.propertyId===p.id).reduce((s,u)=>s+rentReceived(u,Y),0);
+  return {taxes,deps,rents,net:rents-taxes-deps};
+}
+function renderParts(){
+  const Y=selYear();
+  const props=DB.properties.filter(p=>p.owners&&p.owners.length);
+  if(!props.length){
+    document.getElementById('partsSummary').innerHTML='';
+    document.getElementById('partsList').innerHTML=`<div class="empty">${t('emptyParts')}</div>`;
+    return;
+  }
+  // Sommaire agrégé par nom de propriétaire
+  const agg={};
+  props.forEach(p=>{
+    const f=propYearFigures(p,Y);
+    p.owners.forEach(o=>{
+      const k=o.name;
+      if(!agg[k])agg[k]={rents:0,costs:0,net:0};
+      const r=f.rents*o.share/100, c=(f.taxes+f.deps)*o.share/100;
+      agg[k].rents+=r;agg[k].costs+=c;agg[k].net+=r-c;
+    });
+  });
+  document.getElementById('partsSummary').innerHTML=Object.entries(agg).map(([name,v])=>`
+    <div class="item">
+      <div class="l"><div class="t">${esc(name)}</div>
+        <div class="d">${t('colRents')} ${fmt$(v.rents)} · ${t('costsLbl')} ${fmt$(v.costs)}</div></div>
+      <div class="amt num" style="color:${v.net>=0?'var(--verdigris-deep)':'var(--brick)'}">${fmt$(v.net)}<span class="small muted">${t('colNet')} ${Y}</span></div>
+    </div>`).join('');
+  // Fiches par propriété
+  document.getElementById('partsList').innerHTML=props.map(p=>{
+    const f=propYearFigures(p,Y);
+    const rows=p.owners.map(o=>{
+      const r=f.rents*o.share/100, tx=f.taxes*o.share/100, dp=f.deps*o.share/100, net=r-tx-dp;
+      return `<tr><td>${esc(o.name)} <span class="muted">(${o.share} %)</span></td>
+        <td class="num">${fmt$(r)}</td><td class="num">${fmt$(tx)}</td><td class="num">${fmt$(dp)}</td>
+        <td class="num" style="color:${net>=0?'var(--verdigris-deep)':'var(--brick)'}">${fmt$(net)}</td></tr>`;
+    }).join('');
+    return `<div class="card fiche" style="--pc:${propColor(p.id)}">
+      <div class="fiche-head"><div><h3>${esc(p.name)}</h3>
+        <div class="matricule">👥 ${p.owners.map(o=>esc(o.name)+' '+o.share+' %').join(' · ')}</div></div></div>
+      <div style="overflow-x:auto"><table class="share-t">
+        <tr><th></th><th>${t('colRents')}</th><th>${t('colTaxes')}</th><th>${t('colDeps')}</th><th>${t('colNet')}</th></tr>
+        ${rows}
+        <tr class="total"><td>Total</td>
+          <td class="num">${fmt$(f.rents)}</td><td class="num">${fmt$(f.taxes)}</td><td class="num">${fmt$(f.deps)}</td>
+          <td class="num" style="color:${f.net>=0?'var(--verdigris-deep)':'var(--brick)'}">${fmt$(f.net)}</td></tr>
+      </table></div>
+    </div>`;
+  }).join('');
+}
+
 /* ================= Rendu global & démarrage ================= */
-function renderAll(){renderDash();renderProps();renderTaxes();renderDeps();renderRec();renderLoc();}
+function renderAll(){renderDash();renderProps();renderTaxes();renderDeps();renderRec();renderLoc();renderParts();}
 loadDB();
+migrateDB();
 LANG=DB.settings.lang||'fr';
 binKey.value=DB.settings.binKey||'';binId.value=DB.settings.binId||'';
 buildYearPick();
